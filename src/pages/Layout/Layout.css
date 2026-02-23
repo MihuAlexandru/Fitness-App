@@ -1,0 +1,40 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.layout--dashboard {
+  padding: 0 1rem;
+}
+
+.layout__content {
+  width: 100%;
+  flex: 1;
+}
+
+/* Responsive design for tablet */
+@media (max-width: 1200px) {
+  .layout--dashboard {
+    padding: 0 0.75rem;
+  }
+}
+
+/* Responsive design for small tablets */
+@media (max-width: 768px) {
+  .layout--dashboard {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+}
+
+/* Responsive design for mobile */
+@media (max-width: 480px) {
+  .layout {
+    padding: 0;
+  }
+
+  .layout--dashboard {
+    max-width: 100%;
+    padding: 0;
+  }
+}
