@@ -1,4 +1,3 @@
-// src/components/exercises/ExercisesHeader.jsx
 import { useDispatch, useSelector } from "react-redux";
 import { useRef, useState } from "react";
 import { selectMuscleGroups } from "../../../store/UI/exercisesSelectors";
@@ -14,7 +13,6 @@ import {
 export default function ExercisesHeader() {
   const dispatch = useDispatch();
 
-  // Global state
   const user = useSelector((s) => s.auth.user);
   const muscleGroup = useSelector((s) => s.exercisesUi.muscleGroup);
   const sortBy = useSelector((s) => s.exercisesUi.sortBy);
@@ -22,18 +20,14 @@ export default function ExercisesHeader() {
   const pageSize = useSelector((s) => s.exercisesUi.pageSize);
   const searchValue = useSelector((s) => s.exercisesUi.search);
 
-  // Derived from exercises list
   const muscleGroups = useSelector(selectMuscleGroups);
 
-  // Local input just for typing responsiveness (initialized once from Redux)
   const [searchInput, setSearchInput] = useState(searchValue);
   const debounceRef = useRef(null);
 
   function handleSearchChange(e) {
     const next = e.target.value;
-    setSearchInput(next); // local only; not inside an effect
-
-    // Debounce Redux update
+    setSearchInput(next);
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       const trimmed = next.trim();
@@ -60,8 +54,6 @@ export default function ExercisesHeader() {
       }}
     >
       <h1 style={{ marginRight: "auto" }}>Exercises</h1>
-
-      {/* Muscle group filter */}
       <label>
         Muscle group:{" "}
         <select
@@ -75,8 +67,6 @@ export default function ExercisesHeader() {
           ))}
         </select>
       </label>
-
-      {/* Search by name (debounced to Redux; no syncing effect needed) */}
       <input
         type="search"
         placeholder="Search by name…"
@@ -86,8 +76,6 @@ export default function ExercisesHeader() {
         style={{ padding: 6, minWidth: 220 }}
         aria-label="Search exercises by name"
       />
-
-      {/* Sort buttons */}
       <button onClick={() => dispatch(toggleSort("name"))}>
         Sort by Name {sortBy === "name" ? (sortAsc ? "↑" : "↓") : ""}
       </button>
@@ -95,10 +83,8 @@ export default function ExercisesHeader() {
         Sort by Muscle Group{" "}
         {sortBy === "muscle_group" ? (sortAsc ? "↑" : "↓") : ""}
       </button>
-
-      {/* Page size */}
       <label>
-        Per page:{" "}
+        Per page:
         <select
           value={pageSize}
           onChange={(e) => dispatch(setPageSize(Number(e.target.value)))}
@@ -110,20 +96,8 @@ export default function ExercisesHeader() {
           ))}
         </select>
       </label>
-
-      {/* Add exercise */}
       {user && (
-        <button
-          onClick={() => dispatch(openAddModal())}
-          style={{
-            background: "#2563eb",
-            color: "#fff",
-            padding: "8px 12px",
-            borderRadius: 6,
-          }}
-        >
-          + Add Exercise
-        </button>
+        <button onClick={() => dispatch(openAddModal())}>+ Add Exercise</button>
       )}
     </header>
   );

@@ -9,20 +9,17 @@ import { closeModal } from "../../../store/UI/exercisesUISlice";
 export default function ExercisesModal() {
   const dispatch = useDispatch();
 
-  // Selectors (hooks must remain at the top – no early returns before them)
   const isOpen = useSelector((s) => s.exercisesUi.isModalOpen);
   const initial = useSelector((s) => s.exercisesUi.editing);
 
-  // Local form state (safe defaults for "Add" case)
   const [name, setName] = useState(initial?.name ?? "");
   const [group, setGroup] = useState(initial?.muscle_group ?? "");
   const [desc, setDesc] = useState(initial?.description ?? "");
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState(null);
 
-  // Whenever modal opens or editing target changes, (re)hydrate fields
   useEffect(() => {
-    if (!isOpen) return; // don't overwrite when modal is closed
+    if (!isOpen) return;
     setName(initial?.name ?? "");
     setGroup(initial?.muscle_group ?? "");
     setDesc(initial?.description ?? "");
@@ -61,7 +58,6 @@ export default function ExercisesModal() {
     }
   }
 
-  // Early return is fine AFTER all hooks have been called
   if (!isOpen) return null;
 
   return (
