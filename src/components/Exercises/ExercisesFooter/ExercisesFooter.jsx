@@ -4,6 +4,7 @@ import {
   selectTotal,
 } from "../../../store/UI/exercisesSelectors";
 import { setPage } from "../../../store/UI/exercisesUISlice";
+import "./ExercisesFooter.css";
 
 export default function ExercisesFooter() {
   const dispatch = useDispatch();
@@ -11,29 +12,34 @@ export default function ExercisesFooter() {
   const total = useSelector(selectTotal);
 
   return (
-    <footer
-      style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 8 }}
-    >
-      <button
-        onClick={() => dispatch(setPage(Math.max(1, page - 1)))}
-        disabled={page <= 1}
-        aria-label="Previous page"
-      >
-        ◀
-      </button>
-      <span>
-        Page <strong>{page}</strong> of <strong>{pageCount}</strong>
-      </span>
-      <button
-        onClick={() => dispatch(setPage(Math.min(pageCount, page + 1)))}
-        disabled={page >= pageCount}
-        aria-label="Next page"
-      >
-        ▶
-      </button>
-      <span style={{ marginLeft: "auto", opacity: 0.7 }}>
+    <footer className="exf">
+      <span className="exf__total">
         Total: {total} exercise{total === 1 ? "" : "s"}
       </span>
+
+      <div className="exf__pager" role="navigation" aria-label="Pagination">
+        <button
+          className="btn exf__btn"
+          onClick={() => dispatch(setPage(Math.max(1, page - 1)))}
+          disabled={page <= 1}
+          aria-label="Previous page"
+        >
+          ◀
+        </button>
+
+        <span className="exf__pageInfo">
+          Page <strong>{page}</strong> of <strong>{pageCount}</strong>
+        </span>
+
+        <button
+          className="btn exf__btn"
+          onClick={() => dispatch(setPage(Math.min(pageCount, page + 1)))}
+          disabled={page >= pageCount}
+          aria-label="Next page"
+        >
+          ▶
+        </button>
+      </div>
     </footer>
   );
 }

@@ -37,27 +37,6 @@
   box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.15);
 }
 
-.btn {
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-block;
-  text-align: center;
-  border: none;
-  cursor: pointer;
-}
-
-.btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-.btn-primary {
-  background: #0f62fe;
-  color: #fff;
-}
-
 .sr-only {
   position: absolute !important;
   height: 1px;

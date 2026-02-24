@@ -54,7 +54,6 @@ export default function Signup() {
         <button
           disabled={status === "loading"}
           type="submit"
-          className="btn"
           aria-busy={status === "loading"}
         >
           {status === "loading" ? "Creating..." : "Create account"}

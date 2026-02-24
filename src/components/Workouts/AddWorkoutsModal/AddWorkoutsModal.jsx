@@ -1,9 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addLocalWorkout } from "../../../store/workouts/workoutsSlice";
 import { closeAddModal } from "../../../store/UI/workoutsUISlice";
 import { supabase } from "../../../lib/supabase";
+import Card from "../../Card/Card";
+import "./AddWorkoutsModal.css";
+
+// simple UUID helper (works in modern browsers; falls back to Math.random)
+const uid = () =>
+  crypto?.randomUUID ? crypto.randomUUID() : String(Math.random());
 
 export default function AddWorkoutModal() {
   const dispatch = useDispatch();
@@ -14,7 +19,7 @@ export default function AddWorkoutModal() {
   const [duration, setDuration] = useState("");
   const [notes, setNotes] = useState("");
   const [rows, setRows] = useState([
-    { id: Math.random(), exercise_id: "", sets: "", reps: "", weight: "" },
+    { id: uid(), exercise_id: "", sets: "", reps: "", weight: "" },
   ]);
 
   const [saving, setSaving] = useState(false);
@@ -24,12 +29,51 @@ export default function AddWorkoutModal() {
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
   }
 
+  // NEW: add another empty exercise row
+  function addRow() {
+    setRows((prev) => [
+      ...prev,
+      { id: uid(), exercise_id: "", sets: "", reps: "", weight: "" },
+    ]);
+  }
+
+  // NEW: remove row, but ensure we keep at least one empty row
+  function removeRow(id) {
+    setRows((prev) => {
+      const next = prev.filter((x) => x.id !== id);
+      if (next.length === 0) {
+        return [{ id: uid(), exercise_id: "", sets: "", reps: "", weight: "" }];
+      }
+      return next;
+    });
+  }
+
+  // Optional helpers to convert fields
+  const toNumOrNull = (v) =>
+    v === "" || v === null || v === undefined ? null : Number(v);
+
   async function submit(e) {
     e.preventDefault();
     setSaving(true);
     setErr(null);
 
     try {
+      // Basic validation: at least one selected exercise
+      const selectedRows = rows.filter((r) => r.exercise_id);
+      if (!selectedRows.length) {
+        throw new Error("Add at least one exercise to your workout.");
+      }
+
+      // Optional validation: require sets & reps if exercise chosen
+      const invalid = selectedRows.find(
+        (r) => !r.sets || Number(r.sets) <= 0 || !r.reps || Number(r.reps) <= 0,
+      );
+      if (invalid) {
+        throw new Error(
+          "Please provide valid Sets and Reps for each selected exercise.",
+        );
+      }
+
       const { data: w, error: wErr } = await supabase
         .from("workouts")
         .insert([
@@ -45,15 +89,13 @@ export default function AddWorkoutModal() {
 
       if (wErr) throw wErr;
 
-      const payload = rows
-        .filter((r) => r.exercise_id)
-        .map((r) => ({
-          exercise_id: r.exercise_id,
-          sets: Number(r.sets),
-          reps: Number(r.reps),
-          weight: Number(r.weight),
-          workout_id: w.id,
-        }));
+      const payload = selectedRows.map((r) => ({
+        exercise_id: r.exercise_id,
+        sets: Number(r.sets), // required from validation
+        reps: Number(r.reps), // required from validation
+        weight: toNumOrNull(r.weight), // optional
+        workout_id: w.id,
+      }));
 
       let inserted = [];
       if (payload.length) {
@@ -82,47 +124,48 @@ export default function AddWorkoutModal() {
   }
 
   return (
-    <div style={backdrop}>
-      <div style={modal}>
-        <h3>Add Workout</h3>
+    <div className="awm__backdrop">
+      <Card className="awm__modal">
+        <h3 className="awm__title">Add Workout</h3>
 
-        <form onSubmit={submit} style={{ display: "grid", gap: 12 }}>
-          <label>
-            Date:
+        <form className="awm__form" onSubmit={submit}>
+          <label className="awm__field">
+            <span className="awm__label">Date</span>
             <input
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
+              className="awm__input"
             />
           </label>
 
-          <label>
-            Duration:
+          <label className="awm__field">
+            <span className="awm__label">Duration</span>
             <input
               type="number"
               min={0}
               value={duration}
               onChange={(e) => setDuration(e.target.value)}
+              className="awm__input"
             />
           </label>
 
-          <label>
-            Notes:
-            <input value={notes} onChange={(e) => setNotes(e.target.value)} />
+          <label className="awm__field">
+            <span className="awm__label">Notes</span>
+            <input
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              className="awm__input"
+              placeholder="Optional"
+            />
           </label>
 
-          <h4>Exercises</h4>
+          <h4 className="awm__subtitle">Exercises</h4>
 
           {rows.map((r) => (
-            <div
-              key={r.id}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "2fr 1fr 1fr 1fr auto",
-                gap: 8,
-              }}
-            >
+            <div className="awm__row" key={r.id}>
               <select
+                className="awm__select"
                 value={r.exercise_id}
                 onChange={(e) =>
                   updateRow(r.id, { exercise_id: e.target.value })
@@ -137,6 +180,7 @@ export default function AddWorkoutModal() {
               </select>
 
               <input
+                className="awm__input"
                 type="number"
                 min={1}
                 placeholder="Sets"
@@ -145,6 +189,7 @@ export default function AddWorkoutModal() {
               />
 
               <input
+                className="awm__input"
                 type="number"
                 min={1}
                 placeholder="Reps"
@@ -153,6 +198,7 @@ export default function AddWorkoutModal() {
               />
 
               <input
+                className="awm__input"
                 type="number"
                 min={0}
                 step="0.5"
@@ -163,49 +209,42 @@ export default function AddWorkoutModal() {
 
               <button
                 type="button"
-                onClick={() =>
-                  setRows((rows) => rows.filter((x) => x.id !== r.id))
-                }
-                style={{ color: "#b91c1c" }}
+                className="btn btn-danger awm__remove"
+                onClick={() => removeRow(r.id)}
               >
                 Remove
               </button>
             </div>
           ))}
 
-          {err && <p style={{ color: "crimson" }}>{err}</p>}
+          {/* NEW: Add another exercise row */}
+          <div className="awm__addRowWrap">
+            <button
+              type="button"
+              className="btn btn-outline awm__addRow"
+              onClick={addRow}
+            >
+              + Add exercise row
+            </button>
+          </div>
 
-          <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-            <button type="button" onClick={() => dispatch(closeAddModal())}>
+          {err && <p className="awm__error">{err}</p>}
+
+          <div className="awm__actions">
+            <button
+              type="button"
+              className="btn"
+              onClick={() => dispatch(closeAddModal())}
+              disabled={saving}
+            >
               Cancel
             </button>
-            <button
-              type="submit"
-              style={{ background: "#16a34a", color: "#fff" }}
-            >
+            <button type="submit" className="btn btn-primary" disabled={saving}>
               {saving ? "Saving…" : "Add Workout"}
             </button>
           </div>
         </form>
-      </div>
+      </Card>
     </div>
   );
 }
-
-const backdrop = {
-  position: "fixed",
-  inset: 0,
-  background: "rgba(0,0,0,0.4)",
-  display: "grid",
-  placeItems: "center",
-  zIndex: 1000,
-};
-
-const modal = {
-  background: "#fff",
-  padding: 16,
-  borderRadius: 8,
-  width: "min(700px, 96vw)",
-  maxHeight: "90vh",
-  overflow: "auto",
-};

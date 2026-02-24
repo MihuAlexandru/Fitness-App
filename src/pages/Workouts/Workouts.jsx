@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import WorkoutsHeader from "../../components/Workouts/WorkoutsHeader/WorkoutsHeader";
 import WorkoutsTable from "../../components/Workouts/WorkoutsTable/WorkoutsTable";
-import AddWorkoutModal from "../../components/Workouts/AddWorkoutsModal/AddWorkoutModal";
+import AddWorkoutModal from "../../components/Workouts/AddWorkoutsModal/AddWorkoutsModal";
 import { fetchWorkouts } from "../../store/workouts/workoutsThunks";
 import { closeAddModal } from "../../store/UI/workoutsUISlice";
+import "./Workouts.css";
+import WorkoutFooter from "../../components/Workouts/WorkoutsFooter/WorkoutsFooter";
 
 export default function Workouts() {
   const dispatch = useDispatch();
@@ -18,16 +19,14 @@ export default function Workouts() {
   }, [user?.id, dispatch]);
 
   return (
-    <div
-      style={{ padding: 24, display: "flex", flexDirection: "column", gap: 16 }}
-    >
+    <div className="container">
       <WorkoutsHeader />
 
       {status === "loading" && <p>Loading…</p>}
-      {error && <p style={{ color: "crimson" }}>{error}</p>}
+      {error && <p className="workouts-error">{error}</p>}
 
       {status === "succeeded" && <WorkoutsTable />}
-
+      <WorkoutFooter />
       {isAddModalOpen && (
         <AddWorkoutModal onClose={() => dispatch(closeAddModal())} />
       )}

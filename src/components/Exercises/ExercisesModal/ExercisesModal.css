@@ -1,0 +1,90 @@
+.exm__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  padding: 16px; /* breathing room on tiny screens */
+}
+
+.exm__modal {
+  width: min(640px, 92vw);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  height: auto;
+}
+
+.exm__title {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.exm__form {
+  display: grid;
+  gap: 14px;
+}
+
+.exm__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.exm__input,
+.exm__textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d0d7de;
+  font-size: 14px;
+}
+
+.exm__input:focus,
+.exm__textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.15);
+}
+
+.exm__error {
+  color: crimson;
+  font-weight: 600;
+  margin-top: -6px;
+}
+
+.exm__actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+@media (min-width: 320px) {
+  .exm__form {
+    gap: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .exm__modal {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .exm__modal {
+    width: 100%;
+    padding: 16px;
+  }
+
+  .exm__field {
+    width: 100%;
+  }
+
+  .exm__actions {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    margin-top: 10px;
+  }
+}

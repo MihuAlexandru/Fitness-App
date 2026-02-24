@@ -26,8 +26,6 @@
   border-radius: 6px;
   border: 1px solid #d0d7de;
   font-size: 14px;
-  background: #fff;
-  color: #111;
   width: 100%;
   box-sizing: border-box;
 }
@@ -37,7 +35,7 @@
   box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.15);
 }
 
-.btn {
+.signup-form button {
   margin-top: 10px;
 }
 

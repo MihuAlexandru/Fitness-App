@@ -1,13 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectFilteredSortedPagedWorkouts } from "../../../store/UI/workoutsSelectors";
 import WorkoutRow from "../WorkoutsRow/WorkoutsRow";
-import { setPage } from "../../../store/UI/workoutsUISlice";
 
 export default function WorkoutsTable() {
-  const dispatch = useDispatch();
-  const { paged, total, pageCount, page } = useSelector(
-    selectFilteredSortedPagedWorkouts,
-  );
+  const { paged } = useSelector(selectFilteredSortedPagedWorkouts);
 
   if (!paged.length) return <p>No workouts found.</p>;
 
@@ -31,28 +27,6 @@ export default function WorkoutsTable() {
           </tbody>
         </table>
       </div>
-
-      <footer style={{ display: "flex", gap: 12, alignItems: "center" }}>
-        <button
-          onClick={() => dispatch(setPage(page - 1))}
-          disabled={page <= 1}
-        >
-          ◀
-        </button>
-
-        <span>
-          Page <strong>{page}</strong> of <strong>{pageCount}</strong>
-        </span>
-
-        <button
-          onClick={() => dispatch(setPage(page + 1))}
-          disabled={page >= pageCount}
-        >
-          ▶
-        </button>
-
-        <span style={{ marginLeft: "auto", opacity: 0.7 }}>Total: {total}</span>
-      </footer>
     </>
   );
 }

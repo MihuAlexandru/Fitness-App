@@ -5,6 +5,8 @@ import {
   updateExercise,
 } from "../../../store/exercises/exercisesThunks";
 import { closeModal } from "../../../store/UI/exercisesUISlice";
+import Card from "../../Card/Card";
+import "./ExercisesModal.css";
 
 export default function ExercisesModal() {
   const dispatch = useDispatch();
@@ -27,6 +29,8 @@ export default function ExercisesModal() {
     setSaving(false);
   }, [isOpen, initial]);
 
+  if (!isOpen) return null;
+
   const isEdit = Boolean(initial);
 
   async function handleSave(e) {
@@ -40,6 +44,7 @@ export default function ExercisesModal() {
         muscle_group: group.trim(),
         description: desc.trim() || null,
       };
+
       if (!payload.name) throw new Error("Name is required");
       if (!payload.muscle_group) throw new Error("Muscle group is required");
 
@@ -50,6 +55,7 @@ export default function ExercisesModal() {
       } else {
         await dispatch(addExercise(payload)).unwrap();
       }
+
       dispatch(closeModal());
     } catch (e2) {
       setErr(e2.message || "Failed to save");
@@ -58,79 +64,69 @@ export default function ExercisesModal() {
     }
   }
 
-  if (!isOpen) return null;
-
   return (
-    <div style={backdrop}>
-      <div style={modal}>
-        <h3 style={{ marginTop: 0 }}>
+    <div className="exm__backdrop">
+      <Card className="exm__modal">
+        <h3 className="exm__title">
           {isEdit ? "Edit Exercise" : "Add Exercise"}
         </h3>
 
-        <form onSubmit={handleSave} style={{ display: "grid", gap: 12 }}>
-          <label>
+        <form className="exm__form" onSubmit={handleSave}>
+          <label className="exm__field">
             <div>Name</div>
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
               autoFocus
+              placeholder="e.g., Push-Ups, Squats"
+              className="exm__input"
             />
           </label>
 
-          <label>
+          <label className="exm__field">
             <div>Muscle group</div>
             <input
               value={group}
               onChange={(e) => setGroup(e.target.value)}
               required
               placeholder="e.g., Chest, Back, Legs"
+              className="exm__input"
             />
           </label>
 
-          <label>
+          <label className="exm__field">
             <div>Description</div>
             <textarea
               value={desc}
               onChange={(e) => setDesc(e.target.value)}
               rows={4}
               placeholder="Optional notes / instructions"
+              className="exm__textarea"
             />
           </label>
 
-          {err && <div style={{ color: "crimson" }}>{err}</div>}
+          {err && <div className="exm__error">{err}</div>}
 
-          <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+          <div className="exm__actions">
             <button
               type="button"
+              className="btn exm__btn"
               onClick={() => dispatch(closeModal())}
               disabled={saving}
             >
               Cancel
             </button>
-            <button type="submit" disabled={saving}>
+            <button
+              type="submit"
+              className="btn btn-primary exm__btn"
+              disabled={saving}
+            >
               {saving ? "Saving…" : isEdit ? "Save changes" : "Add exercise"}
             </button>
           </div>
         </form>
-      </div>
+      </Card>
     </div>
   );
 }
-
-const backdrop = {
-  position: "fixed",
-  inset: 0,
-  background: "rgba(0,0,0,0.4)",
-  display: "grid",
-  placeItems: "center",
-  zIndex: 1000,
-};
-const modal = {
-  background: "#fff",
-  padding: 16,
-  borderRadius: 8,
-  width: "min(640px, 92vw)",
-  boxShadow:
-    "0 10px 15px -3px rgba(0, 0, 0, 0.1),0 4px 6px -4px rgba(0, 0, 0, 0.1)",
-};

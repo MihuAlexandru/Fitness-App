@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-
 import { useEffect } from "react";
 import {
   openAddModal,
@@ -11,6 +10,7 @@ import {
   setSearchNotes,
   toggleSort,
 } from "../../../store/UI/workoutsUISlice";
+import "./WorkoutsHeader.css";
 
 export default function WorkoutsHeader() {
   const dispatch = useDispatch();
@@ -25,63 +25,78 @@ export default function WorkoutsHeader() {
   }, [searchNotes, dispatch]);
 
   return (
-    <header
-      style={{
-        display: "flex",
-        gap: 12,
-        alignItems: "center",
-        flexWrap: "wrap",
-      }}
-    >
-      <h1 style={{ marginRight: "auto" }}>My Workouts</h1>
+    <header className="wh">
+      <div className="wh__top">
+        <h1 className="wh__title">My Workouts</h1>
+        <button onClick={() => dispatch(openAddModal())}>+ Add Workout</button>
+      </div>
 
-      <label>
-        From:
+      <div className="wh__searchRow">
+        <label htmlFor="wh-search" className="sr-only">
+          Search workout notes
+        </label>
         <input
-          type="date"
-          value={dateFrom}
-          onChange={(e) => dispatch(setDateFrom(e.target.value))}
+          id="wh-search"
+          type="search"
+          className="wh__search"
+          placeholder="Search notes…"
+          value={searchNotes}
+          onChange={(e) => dispatch(setSearchNotes(e.target.value))}
+          aria-label="Search notes"
         />
-      </label>
+      </div>
 
-      <label>
-        To:
-        <input
-          type="date"
-          value={dateTo}
-          onChange={(e) => dispatch(setDateTo(e.target.value))}
-        />
-      </label>
+      <div className="wh__controls">
+        <div className="wh__sortGroup">
+          <button
+            onClick={() => dispatch(toggleSort("date"))}
+            aria-pressed={sortBy === "date"}
+          >
+            Sort: Date {sortBy === "date" ? (sortAsc ? "↑" : "↓") : ""}
+          </button>
 
-      <input
-        type="search"
-        placeholder="Search notes…"
-        value={searchNotes}
-        onChange={(e) => dispatch(setSearchNotes(e.target.value))}
-        style={{ minWidth: 200 }}
-      />
+          <button
+            onClick={() => dispatch(toggleSort("duration"))}
+            aria-pressed={sortBy === "duration"}
+          >
+            Sort: Duration {sortBy === "duration" ? (sortAsc ? "↑" : "↓") : ""}
+          </button>
+        </div>
+        <label className="wh__field">
+          <span className="wh__label">From</span>
+          <input
+            type="date"
+            className="wh__input"
+            value={dateFrom}
+            onChange={(e) => dispatch(setDateFrom(e.target.value))}
+          />
+        </label>
 
-      <button onClick={() => dispatch(toggleSort("date"))}>
-        Sort by Date {sortBy === "date" ? (sortAsc ? "↑" : "↓") : ""}
-      </button>
+        <label className="wh__field">
+          <span className="wh__label">To</span>
+          <input
+            type="date"
+            className="wh__input"
+            value={dateTo}
+            onChange={(e) => dispatch(setDateTo(e.target.value))}
+          />
+        </label>
 
-      <button onClick={() => dispatch(toggleSort("duration"))}>
-        Sort by Duration {sortBy === "duration" ? (sortAsc ? "↑" : "↓") : ""}
-      </button>
-
-      <label>
-        Per page:
-        <select
-          value={pageSize}
-          onChange={(e) => dispatch(setPageSize(Number(e.target.value)))}
-        >
-          {PAGE_SIZE_OPTIONS.map((n) => (
-            <option key={n}>{n}</option>
-          ))}
-        </select>
-      </label>
-
-      <button onClick={() => dispatch(openAddModal())}>+ Add Workout</button>
+        <label className="wh__field wh__field--tight">
+          <span className="wh__label">Per page</span>
+          <select
+            className="wh__select"
+            value={pageSize}
+            onChange={(e) => dispatch(setPageSize(Number(e.target.value)))}
+          >
+            {PAGE_SIZE_OPTIONS.map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
     </header>
   );
 }

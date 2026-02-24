@@ -1,0 +1,55 @@
+.exf {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "total"
+    "pager";
+  gap: 8px;
+  margin-top: 8px;
+  align-items: center;
+}
+
+.exf__total {
+  grid-area: total;
+  justify-self: end;
+  opacity: 0.8;
+}
+
+.exf__pager {
+  grid-area: pager;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  justify-self: center;
+}
+
+.exf__pageInfo {
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+@media (min-width: 320px) {
+  .exf {
+    gap: 10px;
+  }
+  .exf__pager {
+    gap: 14px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .exf {
+    gap: 12px;
+  }
+
+  .exf__pageInfo {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn.exf__btn {
+    padding: 8px 12px;
+  }
+}
