@@ -2,13 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const PAGE_SIZE_OPTIONS = [5, 10, 25, 50, 100];
 
-const initialState = {
+export const initialState = {
   muscleGroup: "All",
   search: "",
   sortBy: "name",
   sortAsc: true,
   page: 1,
-  pageSize: PAGE_SIZE_OPTIONS[0],
+  pageSize: null,
   isModalOpen: false,
   editing: null,
 };

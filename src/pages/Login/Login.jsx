@@ -22,30 +22,75 @@ export default function Login() {
   };
 
   return (
-    <div style={{ padding: 24, maxWidth: 420 }}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Email</label>
+    <div
+      style={{
+        padding: "2rem",
+        maxWidth: 600,
+        margin: "40px auto",
+      }}
+    >
+      <h1 style={{ textAlign: "center", marginBottom: 24 }}>Login</h1>
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "flex", flexDirection: "column", gap: 12 }}
+      >
+        <label style={{ fontWeight: 600 }}>Email</label>
         <input
           type="email"
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
           required
+          style={{
+            padding: "10px 12px",
+            borderRadius: 6,
+            border: "1px solid #ccc",
+            fontSize: 14,
+          }}
         />
-        <label>Password</label>
+
+        <label style={{ fontWeight: 600 }}>Password</label>
         <input
           type="password"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
+          style={{
+            padding: "10px 12px",
+            borderRadius: 6,
+            border: "1px solid #ccc",
+            fontSize: 14,
+          }}
         />
-        <button disabled={status === "loading"} type="submit">
+
+        <button
+          disabled={status === "loading"}
+          type="submit"
+          style={{
+            marginTop: 10,
+            padding: "10px 14px",
+
+            cursor: "pointer",
+            fontSize: 15,
+            fontWeight: 600,
+            transition: "0.2s",
+            opacity: status === "loading" ? 0.7 : 1,
+          }}
+        >
           {status === "loading" ? "Signing in..." : "Sign in"}
         </button>
       </form>
-      {error && <p style={{ color: "crimson" }}>{error}</p>}
-      <p>
-        Don’t have an account? <Link to="/signup">Sign up</Link>
+
+      {error && (
+        <p style={{ color: "crimson", marginTop: 10, textAlign: "center" }}>
+          {error}
+        </p>
+      )}
+
+      <p style={{ marginTop: 20, textAlign: "center" }}>
+        Don’t have an account?{" "}
+        <Link to="/signup" style={{ color: "#3b82f6", fontWeight: 600 }}>
+          Sign up
+        </Link>
       </p>
     </div>
   );

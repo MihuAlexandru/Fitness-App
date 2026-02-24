@@ -9,36 +9,80 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const { user } = useSelector((s) => s.auth);
 
-  const handleSignOut = async () => {
+  const handleSignOut = async (e) => {
+    e?.preventDefault?.();
     await dispatch(signOutUser());
+    const toggler = document.getElementById("nav-toggle");
+    if (toggler) toggler.checked = false;
   };
 
   return (
     <Card className="nav">
       <div className="nav__brand">Fitness App</div>
-      <div className="nav__links">
+
+      <input
+        type="checkbox"
+        id="nav-toggle"
+        className="nav__toggle"
+        aria-label="Toggle navigation menu"
+      />
+
+      <label
+        htmlFor="nav-toggle"
+        className="nav__hamburger"
+        aria-controls="nav-links"
+        aria-expanded="false"
+      >
+        <span className="burger-line" />
+        <span className="burger-line" />
+        <span className="burger-line" />
+      </label>
+      <div
+        id="nav-links"
+        className="nav__links"
+        onClick={(e) => {
+          const target = e.target;
+          if (target.closest("a")) {
+            const toggler = document.getElementById("nav-toggle");
+            if (toggler) toggler.checked = false;
+          }
+        }}
+      >
         <NavLink
           to="/"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           Home
         </NavLink>
+
         <NavLink
           to="/exercises"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           Exercises
         </NavLink>
+
+        {user && (
+          <NavLink
+            to="/workouts"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Workouts
+          </NavLink>
+        )}
+
+        <NavLink
+          to="/contact"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          Contact Us
+        </NavLink>
+
         {user ? (
-          <>
-            <NavLink
-              to="/workouts"
-              className={({ isActive }) => (isActive ? "active" : "")}
-            >
-              Workouts
-            </NavLink>
-            <button onClick={handleSignOut}>Sign out</button>
-          </>
+          // Styled like a link, still performs sign-out action
+          <a href="/" onClick={handleSignOut} className="nav__action">
+            Sign out
+          </a>
         ) : (
           <>
             <NavLink
@@ -55,6 +99,7 @@ export default function NavBar() {
             </NavLink>
           </>
         )}
+
         <ThemeToggle />
       </div>
     </Card>

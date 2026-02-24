@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
   openAddModal,
+  PAGE_SIZE_OPTIONS,
   setDateFrom,
   setDateTo,
+  setPageSize,
   setSearch,
   setSearchNotes,
   toggleSort,
 } from "../../../store/UI/workoutsUISlice";
-import {
-  PAGE_SIZE_OPTIONS,
-  setPageSize,
-} from "../../../store/UI/exercisesUISlice";
 
 export default function WorkoutsHeader() {
   const dispatch = useDispatch();

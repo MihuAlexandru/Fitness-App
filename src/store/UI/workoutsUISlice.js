@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const PAGE_SIZE_OPTIONS = [5, 10, 25, 50, 100];
+export const PAGE_SIZE_OPTIONS = [5, 10, 25, 50, 100];
 
-const initialState = {
+export const initialState = {
   dateFrom: "",
   dateTo: "",
   searchNotes: "",
   search: "",
-  sortBy: "date", // "date" | "duration"
+  sortBy: "date",
   sortAsc: false,
   page: 1,
-  pageSize: PAGE_SIZE_OPTIONS[0], // 5
+  pageSize: null,
   isAddModalOpen: false,
   expanded: [],
 };

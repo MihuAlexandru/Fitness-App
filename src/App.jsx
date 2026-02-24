@@ -11,6 +11,7 @@ import Layout from "./pages/Layout/Layout";
 import Workouts from "./pages/Workouts/Workouts";
 import { fetchCurrentUser } from "./store/auth/authThunks";
 import { setAuthState } from "./store/auth/authSlice";
+import ContactUs from "./pages/ContactUs/ContactUs";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ export default function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/contact" element={<ContactUs />} />
             <Route path="*" element={<Navigate to="/" replace />} />{" "}
           </Route>
         </Routes>

@@ -8,7 +8,7 @@ export default function ProtectedRoute({ children }) {
   if (!initialized) return null;
 
   if (!user) {
-    return <Navigate to="/login" replace state={{ from: location }} />;
+    return <Navigate to="/" replace state={{ from: location }} />;
   }
 
   return children;

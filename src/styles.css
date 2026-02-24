@@ -153,3 +153,9 @@ textarea {
 input::placeholder {
   color: var(--muted);
 }
+
+@media (max-width: 940px) {
+  body {
+    margin: 20px;
+  }
+}
