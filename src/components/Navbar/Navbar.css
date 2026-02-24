@@ -4,14 +4,16 @@
   align-items: center;
   justify-content: space-between;
   background: var(--panel, #31b5a8);
-  padding: 1rem !important;
+  padding: 1.3rem !important;
   margin-bottom: 1rem;
   position: relative;
+  gap: 0.5rem;
 }
 
 .nav__brand {
   font-weight: 700;
   white-space: nowrap;
+  font-size: 1rem;
 }
 
 .nav__toggle {
@@ -21,12 +23,19 @@
 }
 
 .nav__hamburger {
-  display: none;
+  display: flex;
   cursor: pointer;
   width: 28px;
-  height: 20px;
+  height: 24px;
   position: relative;
-  -webkit-tap-highlight-color: transparent;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: auto;
+  pointer-events: auto;
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 .burger-line {
@@ -46,19 +55,17 @@
 .burger-line:nth-child(1) {
   top: 0;
 }
+
 .burger-line:nth-child(2) {
-  top: 9px;
-}
-.burger-line:nth-child(3) {
-  top: 18px;
+  top: 11px;
 }
 
-.nav__hamburger:hover .burger-line {
-  background: rgba(255, 255, 255, 0.9);
+.burger-line:nth-child(3) {
+  top: 22px;
 }
 
 .nav__toggle:checked + .nav__hamburger .burger-line:nth-child(1) {
-  top: 9px;
+  top: 11px;
   transform: rotate(45deg);
 }
 
@@ -67,103 +74,135 @@
 }
 
 .nav__toggle:checked + .nav__hamburger .burger-line:nth-child(3) {
-  top: 9px;
+  top: 11px;
   transform: rotate(-45deg);
 }
 
 .nav__links {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  left: 0;
+
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  flex-direction: column;
   align-items: center;
+  gap: 6px;
+
+  background: var(--panel, #31b5a8);
+  padding: 12px 8px;
+
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border, #00000014);
+
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-6px);
+
+  transition:
+    max-height 300ms ease,
+    opacity 300ms ease,
+    transform 300ms ease;
 }
 
 .nav__links a,
 .nav__links .nav__action {
+  display: block;
   color: var(--text, #e8eaf0);
   text-decoration: none;
-  padding: 0.3rem 0.5rem;
+  padding: 10px 12px;
+  border-radius: 6px;
+  width: 100%;
+  text-align: center;
+  transition: background 200ms ease;
 }
 
 .nav__links a:hover,
 .nav__links .nav__action:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .nav__links a.active {
   border: 1px solid var(--btn-border);
   background: var(--btn-bg);
   color: var(--btn-text);
-  padding: 10px 14px;
+  padding: 9px 11px;
   border-radius: var(--radius);
   font-weight: 600;
   cursor: pointer;
 }
 
+.nav__toggle:checked ~ .nav__links {
+  max-height: 360px;
+  opacity: 1;
+  transform: translateY(0);
+  overflow: auto;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .nav__links,
   .burger-line {
     transition: none;
   }
 }
 
-@media (max-width: 940px) {
+@media (min-width: 320px) {
   .nav {
     padding: 0.75rem;
   }
 
+  .nav__brand {
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nav {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .nav__brand {
+    font-size: 1.1rem;
+  }
+
   .nav__hamburger {
-    display: block;
-    margin-left: auto;
-    z-index: 1002;
-    pointer-events: auto;
+    display: none;
   }
 
   .nav__links {
-    position: absolute;
-    top: calc(100% + 12px);
-    right: 0;
-    left: 0;
-
-    flex-direction: column;
+    position: static;
+    flex-direction: row;
     align-items: center;
-    gap: 6px;
+    justify-content: flex-end;
+    gap: 1rem;
 
-    background: var(--panel, #31b5a8);
-    padding: 8px;
+    background: transparent;
+    padding: 0;
 
-    border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    border: 1px solid var(--border, #00000014);
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
 
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transform: translateY(-6px);
-
-    z-index: 1000;
+    max-height: none;
+    opacity: 1;
+    overflow: visible;
+    transform: none;
   }
 
   .nav__links a,
   .nav__links .nav__action {
-    display: block;
-    padding: 10px 12px;
-    border-radius: 6px;
+    display: inline-block;
+    padding: 0.3rem 0.5rem;
+    width: auto;
+    text-align: left;
+    border-radius: 4px;
   }
 
-  .nav__toggle:checked ~ .nav__links {
-    max-height: 360px;
-    opacity: 1;
-    transform: translateY(0);
-    overflow: auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav {
-    padding: 0.5rem;
-  }
-  .nav__brand {
-    font-size: 0.9rem;
+  .nav__links a:hover,
+  .nav__links .nav__action:hover {
+    background: rgba(0, 0, 0, 0.1);
   }
 }

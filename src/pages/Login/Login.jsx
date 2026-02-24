@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { signInWithEmail } from "../../store/auth/authThunks";
+import "./Login.css";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -22,73 +23,48 @@ export default function Login() {
   };
 
   return (
-    <div
-      style={{
-        padding: "2rem",
-        maxWidth: 600,
-        margin: "40px auto",
-      }}
-    >
-      <h1 style={{ textAlign: "center", marginBottom: 24 }}>Login</h1>
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: 12 }}
-      >
-        <label style={{ fontWeight: 600 }}>Email</label>
+    <div className="login-container">
+      <h1 className="login-title">Login</h1>
+
+      <form className="login-form" onSubmit={handleSubmit}>
+        <label htmlFor="email" className="login-label">
+          Email
+        </label>
         <input
+          id="email"
           type="email"
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
           required
-          style={{
-            padding: "10px 12px",
-            borderRadius: 6,
-            border: "1px solid #ccc",
-            fontSize: 14,
-          }}
+          className="input"
+          autoComplete="email"
+          placeholder="you@example.com"
         />
 
-        <label style={{ fontWeight: 600 }}>Password</label>
+        <label htmlFor="password" className="login-label">
+          Password
+        </label>
         <input
+          id="password"
           type="password"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
-          style={{
-            padding: "10px 12px",
-            borderRadius: 6,
-            border: "1px solid #ccc",
-            fontSize: 14,
-          }}
+          className="input"
+          autoComplete="current-password"
+          placeholder="Your password"
         />
 
-        <button
-          disabled={status === "loading"}
-          type="submit"
-          style={{
-            marginTop: 10,
-            padding: "10px 14px",
-
-            cursor: "pointer",
-            fontSize: 15,
-            fontWeight: 600,
-            transition: "0.2s",
-            opacity: status === "loading" ? 0.7 : 1,
-          }}
-        >
+        <button disabled={status === "loading"} type="submit" className="btn">
           {status === "loading" ? "Signing in..." : "Sign in"}
         </button>
       </form>
 
-      {error && (
-        <p style={{ color: "crimson", marginTop: 10, textAlign: "center" }}>
-          {error}
-        </p>
-      )}
+      {error && <p className="login-error">{error}</p>}
 
-      <p style={{ marginTop: 20, textAlign: "center" }}>
+      <p className="login-footer">
         Don’t have an account?{" "}
-        <Link to="/signup" style={{ color: "#3b82f6", fontWeight: 600 }}>
+        <Link to="/signup" className="link">
           Sign up
         </Link>
       </p>

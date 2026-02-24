@@ -104,6 +104,7 @@ button,
   background: var(--btn-bg);
   color: var(--btn-text);
   cursor: pointer;
+  text-decoration: none;
   transition:
     transform var(--transition-fast),
     box-shadow var(--transition-fast),

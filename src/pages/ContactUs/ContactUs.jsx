@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { useNavigate } from "react-router-dom";
+import "./ContactUs.css";
 
 export default function ContactUs() {
   const navigate = useNavigate();
@@ -41,50 +42,66 @@ export default function ContactUs() {
 
   if (submitted) {
     return (
-      <div style={{ padding: "2rem" }}>
-        <h2>Thank you for contacting us!</h2>
-        <p>Someone will respond soon.</p>
-        <button onClick={() => navigate("/")}>Go to Home</button>
+      <div className="contact-container">
+        <h2 className="contact-title">Thank you for contacting us!</h2>
+        <p className="contact-subtitle">Someone will respond soon.</p>
+        <button className="btn btn-primary" onClick={() => navigate("/")}>
+          Go to Home
+        </button>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: "2rem", maxWidth: 600, margin: "0 auto" }}>
-      <h1>Contact Us</h1>
+    <div className="contact-container">
+      <h1 className="contact-title">Contact Us</h1>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-      >
+      <form className="contact-form" onSubmit={handleSubmit}>
+        <label className="sr-only" htmlFor="name">
+          Your name
+        </label>
         <input
+          id="name"
           type="text"
           name="name"
           placeholder="Your name"
           value={form.name}
           onChange={handleChange}
           required
+          className="input"
+          autoComplete="name"
         />
 
+        <label className="sr-only" htmlFor="email">
+          Your email
+        </label>
         <input
+          id="email"
           type="email"
           name="email"
           placeholder="Your email"
           value={form.email}
           onChange={handleChange}
           required
+          className="input"
+          autoComplete="email"
         />
 
+        <label className="sr-only" htmlFor="message">
+          Your message
+        </label>
         <textarea
+          id="message"
           name="message"
           placeholder="Your message"
           value={form.message}
           onChange={handleChange}
           required
           rows={5}
+          className="textarea"
         />
 
-        <button type="submit" disabled={loading}>
+        <button type="submit" className="btn btn-primary" disabled={loading}>
           {loading ? "Sending..." : "Send Message"}
         </button>
       </form>

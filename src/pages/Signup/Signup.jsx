@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpWithEmail } from "../../store/auth/authThunks";
 import { useNavigate, Link } from "react-router-dom";
+import "./Signup.css";
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -18,74 +19,53 @@ export default function Signup() {
   };
 
   return (
-    <div
-      style={{
-        padding: "2rem",
-        maxWidth: 600,
-        margin: "40px auto",
-      }}
-    >
-      <h1 style={{ textAlign: "center", marginBottom: 24 }}>Sign up</h1>
+    <div className="signup-container">
+      <h1 className="signup-title">Sign up</h1>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: 12 }}
-      >
-        <label style={{ fontWeight: 600 }}>Email</label>
+      <form className="signup-form" onSubmit={handleSubmit}>
+        <label htmlFor="email" className="signup-label">
+          Email
+        </label>
         <input
+          id="email"
           type="email"
           value={form.email}
           onChange={(e) => setForm({ ...form, email: e.target.value })}
           required
-          style={{
-            padding: "10px 12px",
-            borderRadius: 6,
-            border: "1px solid #ccc",
-            fontSize: 14,
-          }}
+          className="input"
+          autoComplete="email"
+          placeholder="you@example.com"
         />
 
-        <label style={{ fontWeight: 600 }}>Password</label>
+        <label htmlFor="password" className="signup-label">
+          Password
+        </label>
         <input
+          id="password"
           type="password"
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
-          style={{
-            padding: "10px 12px",
-            borderRadius: 6,
-            border: "1px solid #ccc",
-            fontSize: 14,
-          }}
+          className="input"
+          autoComplete="new-password"
+          placeholder="Create a password"
         />
 
         <button
           disabled={status === "loading"}
           type="submit"
-          style={{
-            marginTop: 10,
-            padding: "10px 14px",
-
-            cursor: "pointer",
-            fontSize: 15,
-            fontWeight: 600,
-            transition: "0.2s",
-            opacity: status === "loading" ? 0.7 : 1,
-          }}
+          className="btn"
+          aria-busy={status === "loading"}
         >
           {status === "loading" ? "Creating..." : "Create account"}
         </button>
       </form>
 
-      {error && (
-        <p style={{ color: "crimson", marginTop: 10, textAlign: "center" }}>
-          {error}
-        </p>
-      )}
+      {error && <p className="signup-error">{error}</p>}
 
-      <p style={{ marginTop: 20, textAlign: "center" }}>
+      <p className="signup-footer">
         Already have an account?{" "}
-        <Link to="/login" style={{ color: "#3b82f6", fontWeight: 600 }}>
+        <Link to="/login" className="link">
           Log in
         </Link>
       </p>

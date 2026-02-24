@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { supabase } from "./lib/supabase";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import Dashboard from "./pages/Exercises/Exercises";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
