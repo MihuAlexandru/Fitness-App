@@ -1,67 +1,71 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteWorkout,
-  updateWorkoutNotes,
-} from "../../../store/workouts/workoutsThunks";
-import { toggleExpand } from "../../../store/UI/workoutsUISlice";
+import { deleteWorkout } from "../../../store/workouts/workoutsThunks";
+import { toggleExpand, openEditModal } from "../../../store/UI/workoutsUISlice";
 import ExercisesSubtable from "../ExercisesSubtable/ExercisesSubtable";
+import "./WorkoutsRow.css";
 
-export default function WorkoutRow({ w }) {
+export default function WorkoutsRow({ w }) {
   const dispatch = useDispatch();
   const { expanded } = useSelector((s) => s.workoutsUi);
   const isOpen = expanded.includes(w.id);
 
-  const [editingNotes, setEditingNotes] = useState(false);
-  const [draft, setDraft] = useState(w.notes || "");
-
-  async function saveNotes() {
-    await dispatch(updateWorkoutNotes({ id: w.id, notes: draft }));
-    setEditingNotes(false);
-  }
-
   return (
     <>
-      <tr>
-        <td>
-          <button onClick={() => dispatch(toggleExpand(w.id))}>
-            {isOpen ? "▾" : "▸"}
-          </button>{" "}
+      <tr className="wtr">
+        <td className="wtd" data-label="Date">
           {w.date}
         </td>
 
-        <td>{w.duration ?? "—"} min</td>
-
-        <td>
-          {editingNotes ? (
-            <div style={{ display: "flex", gap: 8 }}>
-              <input value={draft} onChange={(e) => setDraft(e.target.value)} />
-              <button onClick={saveNotes}>Save</button>
-              <button onClick={() => setEditingNotes(false)}>Cancel</button>
-            </div>
-          ) : (
-            <div style={{ display: "flex", gap: 8 }}>
-              <span>{w.notes || <em>No notes</em>}</span>
-              <button onClick={() => setEditingNotes(true)}>Edit</button>
-            </div>
-          )}
+        <td className="wtd" data-label="Duration">
+          {w.duration ?? "—"} min
         </td>
 
-        <td>{w.exercises.length} exercises</td>
+        <td className="wtd" data-label="Notes">
+          {w.notes || <em>No notes</em>}
+        </td>
 
-        <td>
-          <button
-            onClick={() => dispatch(deleteWorkout(w.id))}
-            style={{ color: "#b91c1c" }}
-          >
-            Delete
-          </button>
+        <td className="wtd" data-label="Exercises">
+          {w.exercises.length}{" "}
+          {w.exercises.length === 1 ? "exercise" : "exercises"}
+        </td>
+
+        <td className="wtd wtd--actions" data-label="Actions">
+          <div className="w-actions">
+            <button
+              className="ex-btn"
+              onClick={() => dispatch(openEditModal(w))}
+              aria-label="Edit workout"
+            >
+              Edit
+            </button>
+
+            <button
+              className="ex-btn btn-danger"
+              onClick={() => dispatch(deleteWorkout(w.id))}
+              aria-label="Delete workout"
+            >
+              Delete
+            </button>
+          </div>
+        </td>
+        <td className="wtd">
+          {w.exercises.length !== 0 && (
+            <button
+              className="ex-btn expand-btn"
+              onClick={() => dispatch(toggleExpand(w.id))}
+              aria-expanded={isOpen}
+              aria-label={isOpen ? "Collapse exercises" : "Expand exercises"}
+              title={isOpen ? "Collapse" : "Expand"}
+            >
+              {!isOpen ? "▼" : "▲"}
+            </button>
+          )}
         </td>
       </tr>
 
       {isOpen && (
-        <tr>
-          <td colSpan={5}>
+        <tr className="wtr wtr--sub">
+          <td className="wtd wtd--sub" colSpan={6}>
             <ExercisesSubtable workout={w} />
           </td>
         </tr>

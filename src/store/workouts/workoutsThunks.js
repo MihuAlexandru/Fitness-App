@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { supabase } from "../../lib/supabase";
 
-// Fetch all workouts + exercises + catalog
 export const fetchWorkouts = createAsyncThunk(
   "workouts/fetchWorkouts",
   async (userId) => {
@@ -47,7 +46,6 @@ export const fetchWorkouts = createAsyncThunk(
   },
 );
 
-// Delete workout
 export const deleteWorkout = createAsyncThunk(
   "workouts/deleteWorkout",
   async (id) => {
@@ -57,7 +55,6 @@ export const deleteWorkout = createAsyncThunk(
   },
 );
 
-// Update workout notes
 export const updateWorkoutNotes = createAsyncThunk(
   "workouts/updateNotes",
   async ({ id, notes }) => {
@@ -73,7 +70,6 @@ export const updateWorkoutNotes = createAsyncThunk(
   },
 );
 
-// Update exercise row
 export const updateWorkoutExercise = createAsyncThunk(
   "workouts/updateExercise",
   async ({ id, patch }) => {
@@ -88,7 +84,6 @@ export const updateWorkoutExercise = createAsyncThunk(
   },
 );
 
-// Delete exercise row
 export const deleteWorkoutExercise = createAsyncThunk(
   "workouts/deleteExercise",
   async (id) => {
@@ -99,5 +94,47 @@ export const deleteWorkoutExercise = createAsyncThunk(
 
     if (error) throw error;
     return id;
+  },
+);
+
+export const updateWorkoutFull = createAsyncThunk(
+  "workouts/updateWorkoutFull",
+  async ({ workout, updates }) => {
+    const { id } = workout;
+
+    const { data: updatedWorkout, error: wErr } = await supabase
+      .from("workouts")
+      .update({
+        date: updates.date,
+        duration: updates.duration ? Number(updates.duration) : null,
+        notes: updates.notes || null,
+      })
+      .eq("id", id)
+      .select("*")
+      .single();
+
+    if (wErr) throw wErr;
+
+    await supabase.from("workout_exercises").delete().eq("workout_id", id);
+
+    const payload = updates.rows.map((r) => ({
+      workout_id: id,
+      exercise_id: r.exercise_id,
+      sets: Number(r.sets),
+      reps: Number(r.reps),
+      weight: r.weight ? Number(r.weight) : null,
+    }));
+
+    const { data: inserted, error: weErr } = await supabase
+      .from("workout_exercises")
+      .insert(payload)
+      .select("*");
+
+    if (weErr) throw weErr;
+
+    return {
+      ...updatedWorkout,
+      exercises: inserted,
+    };
   },
 );

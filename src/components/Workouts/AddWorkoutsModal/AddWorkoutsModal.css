@@ -10,6 +10,7 @@
 
 .awm__modal {
   width: min(700px, 96vw);
+  height: auto;
   max-height: 90vh;
   overflow: auto;
   box-shadow:
@@ -48,8 +49,6 @@
   border-radius: 8px;
   border: 1px solid #d0d7de;
   font-size: 14px;
-  background: #fff;
-  color: #111;
   box-sizing: border-box;
 }
 
@@ -97,7 +96,7 @@
   }
 
   .awm__row {
-    grid-template-columns: 1fr; /* single column */
+    grid-template-columns: 1fr;
   }
 
   .awm__actions {
@@ -111,17 +110,6 @@
   display: flex;
   justify-content: flex-start;
   margin-top: 4px;
-}
-
-.btn.btn-outline {
-  background: #ffffff;
-  color: #0f62fe;
-  border: 1px solid #b7cafc;
-}
-
-.btn.btn-outline:hover {
-  background: #f0f5ff;
-  border-color: #8fb0ff;
 }
 
 @media (max-width: 480px) {

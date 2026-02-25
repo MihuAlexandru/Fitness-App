@@ -1,0 +1,128 @@
+.wesub {
+  background: var(--bg-row-alt);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+}
+
+.wesub-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  color: var(--text);
+}
+
+.wesub-thead {
+  border-bottom: 1px solid var(--border);
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.wesub-th {
+  text-align: left;
+  font-weight: 600;
+  padding: 10px 8px;
+}
+
+.wesub-tr {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.wesub-td {
+  display: block;
+  padding: 12px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.wesub-td:last-child {
+  border-bottom: none;
+}
+
+.wesub-td::before {
+  content: attr(data-label);
+  display: block;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.wesub-input {
+  width: 100%;
+  max-width: 120px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+
+  font-size: 0.875rem;
+}
+
+.wesub-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.wesub-td--actions {
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .wesub-thead {
+    position: static;
+    height: auto;
+    width: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+  }
+
+  .wesub-tr {
+    display: table-row;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    background: transparent;
+    margin-bottom: 0;
+  }
+
+  .wesub-td,
+  .wesub-th {
+    display: table-cell;
+    padding: 10px 8px;
+    border-bottom: none;
+    vertical-align: middle;
+  }
+
+  .wesub-td::before {
+    content: none;
+  }
+
+  .wesub-td--actions {
+    text-align: right;
+  }
+
+  tbody .wesub-tr:nth-child(even) {
+    background: var(--bg-row-alt);
+  }
+}
+
+.btn.btn-danger {
+  color: var(--danger);
+  background: #fff5f5;
+  border-color: #f3c5c5;
+}
+
+.btn.btn-danger:hover {
+  background: #ffecec;
+}

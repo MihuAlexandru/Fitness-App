@@ -1,26 +1,54 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addLocalWorkout } from "../../../store/workouts/workoutsSlice";
-import { closeAddModal } from "../../../store/UI/workoutsUISlice";
+import {
+  closeAddModal,
+  closeEditModal,
+} from "../../../store/UI/workoutsUISlice";
 import { supabase } from "../../../lib/supabase";
 import Card from "../../Card/Card";
 import "./AddWorkoutsModal.css";
+import { updateWorkoutFull } from "../../../store/workouts/workoutsThunks";
 
-// simple UUID helper (works in modern browsers; falls back to Math.random)
 const uid = () =>
   crypto?.randomUUID ? crypto.randomUUID() : String(Math.random());
 
-export default function AddWorkoutModal() {
+const toInputStr = (v) => (v === null || v === undefined ? "" : String(v));
+
+export default function AddWorkoutModal({
+  edit = false,
+  workout = null,
+  onClose,
+}) {
   const dispatch = useDispatch();
   const catalog = useSelector((s) => s.workouts.catalog);
   const userId = useSelector((s) => s.auth.user.id);
 
-  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
-  const [duration, setDuration] = useState("");
-  const [notes, setNotes] = useState("");
-  const [rows, setRows] = useState([
-    { id: uid(), exercise_id: "", sets: "", reps: "", weight: "" },
-  ]);
+  const [date, setDate] = useState(() =>
+    edit
+      ? (workout?.date ?? new Date().toISOString().slice(0, 10))
+      : new Date().toISOString().slice(0, 10),
+  );
+
+  const [duration, setDuration] = useState(() =>
+    edit ? toInputStr(workout?.duration) : "",
+  );
+
+  const [notes, setNotes] = useState(() =>
+    edit ? toInputStr(workout?.notes) : "",
+  );
+
+  const [rows, setRows] = useState(() =>
+    edit
+      ? (workout?.exercises ?? []).map((r) => ({
+          id: r.id,
+          exercise_id: toInputStr(r.exercise_id),
+          sets: toInputStr(r.sets),
+          reps: toInputStr(r.reps),
+          weight: toInputStr(r.weight),
+        }))
+      : [{ id: uid(), exercise_id: "", sets: "", reps: "", weight: "" }],
+  );
 
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState(null);
@@ -29,7 +57,6 @@ export default function AddWorkoutModal() {
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
   }
 
-  // NEW: add another empty exercise row
   function addRow() {
     setRows((prev) => [
       ...prev,
@@ -37,7 +64,6 @@ export default function AddWorkoutModal() {
     ]);
   }
 
-  // NEW: remove row, but ensure we keep at least one empty row
   function removeRow(id) {
     setRows((prev) => {
       const next = prev.filter((x) => x.id !== id);
@@ -48,7 +74,6 @@ export default function AddWorkoutModal() {
     });
   }
 
-  // Optional helpers to convert fields
   const toNumOrNull = (v) =>
     v === "" || v === null || v === undefined ? null : Number(v);
 
@@ -58,13 +83,28 @@ export default function AddWorkoutModal() {
     setErr(null);
 
     try {
-      // Basic validation: at least one selected exercise
       const selectedRows = rows.filter((r) => r.exercise_id);
       if (!selectedRows.length) {
         throw new Error("Add at least one exercise to your workout.");
       }
 
-      // Optional validation: require sets & reps if exercise chosen
+      if (edit) {
+        await dispatch(
+          updateWorkoutFull({
+            workout,
+            updates: {
+              date,
+              duration,
+              notes,
+              rows: selectedRows,
+            },
+          }),
+        );
+
+        dispatch(closeEditModal());
+        return;
+      }
+
       const invalid = selectedRows.find(
         (r) => !r.sets || Number(r.sets) <= 0 || !r.reps || Number(r.reps) <= 0,
       );
@@ -91,9 +131,9 @@ export default function AddWorkoutModal() {
 
       const payload = selectedRows.map((r) => ({
         exercise_id: r.exercise_id,
-        sets: Number(r.sets), // required from validation
-        reps: Number(r.reps), // required from validation
-        weight: toNumOrNull(r.weight), // optional
+        sets: Number(r.sets),
+        reps: Number(r.reps),
+        weight: toNumOrNull(r.weight),
         workout_id: w.id,
       }));
 
@@ -123,10 +163,12 @@ export default function AddWorkoutModal() {
     }
   }
 
+  if (edit && !workout) return null;
+
   return (
     <div className="awm__backdrop">
       <Card className="awm__modal">
-        <h3 className="awm__title">Add Workout</h3>
+        <h3 className="awm__title">{edit ? "Edit Workout" : "Add Workout"}</h3>
 
         <form className="awm__form" onSubmit={submit}>
           <label className="awm__field">
@@ -166,7 +208,7 @@ export default function AddWorkoutModal() {
             <div className="awm__row" key={r.id}>
               <select
                 className="awm__select"
-                value={r.exercise_id}
+                value={r.exercise_id ?? ""}
                 onChange={(e) =>
                   updateRow(r.id, { exercise_id: e.target.value })
                 }
@@ -184,7 +226,7 @@ export default function AddWorkoutModal() {
                 type="number"
                 min={1}
                 placeholder="Sets"
-                value={r.sets}
+                value={r.sets ?? ""} // always string
                 onChange={(e) => updateRow(r.id, { sets: e.target.value })}
               />
 
@@ -193,7 +235,7 @@ export default function AddWorkoutModal() {
                 type="number"
                 min={1}
                 placeholder="Reps"
-                value={r.reps}
+                value={r.reps ?? ""}
                 onChange={(e) => updateRow(r.id, { reps: e.target.value })}
               />
 
@@ -203,7 +245,7 @@ export default function AddWorkoutModal() {
                 min={0}
                 step="0.5"
                 placeholder="Weight"
-                value={r.weight}
+                value={r.weight ?? ""}
                 onChange={(e) => updateRow(r.id, { weight: e.target.value })}
               />
 
@@ -212,19 +254,13 @@ export default function AddWorkoutModal() {
                 className="btn btn-danger awm__remove"
                 onClick={() => removeRow(r.id)}
               >
-                Remove
+                Remove Exercise
               </button>
             </div>
           ))}
-
-          {/* NEW: Add another exercise row */}
           <div className="awm__addRowWrap">
-            <button
-              type="button"
-              className="btn btn-outline awm__addRow"
-              onClick={addRow}
-            >
-              + Add exercise row
+            <button type="button" className="btn awm__addRow" onClick={addRow}>
+              + Add exercise
             </button>
           </div>
 
@@ -234,13 +270,16 @@ export default function AddWorkoutModal() {
             <button
               type="button"
               className="btn"
-              onClick={() => dispatch(closeAddModal())}
+              onClick={() => {
+                if (typeof onClose === "function") return onClose();
+                return dispatch(edit ? closeEditModal() : closeAddModal());
+              }}
               disabled={saving}
             >
               Cancel
             </button>
-            <button type="submit" className="btn btn-primary" disabled={saving}>
-              {saving ? "Saving…" : "Add Workout"}
+            <button className="btn btn-primary">
+              {saving ? "Saving…" : edit ? "Save Changes" : "Add Workout"}
             </button>
           </div>
         </form>

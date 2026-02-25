@@ -4,7 +4,7 @@ import WorkoutsHeader from "../../components/Workouts/WorkoutsHeader/WorkoutsHea
 import WorkoutsTable from "../../components/Workouts/WorkoutsTable/WorkoutsTable";
 import AddWorkoutModal from "../../components/Workouts/AddWorkoutsModal/AddWorkoutsModal";
 import { fetchWorkouts } from "../../store/workouts/workoutsThunks";
-import { closeAddModal } from "../../store/UI/workoutsUISlice";
+import { closeAddModal, closeEditModal } from "../../store/UI/workoutsUISlice";
 import "./Workouts.css";
 import WorkoutFooter from "../../components/Workouts/WorkoutsFooter/WorkoutsFooter";
 
@@ -12,7 +12,9 @@ export default function Workouts() {
   const dispatch = useDispatch();
   const { user } = useSelector((s) => s.auth);
   const { status, error } = useSelector((s) => s.workouts);
-  const { isAddModalOpen } = useSelector((s) => s.workoutsUi);
+  const { isAddModalOpen, isEditModalOpen, editing } = useSelector(
+    (s) => s.workoutsUi,
+  );
 
   useEffect(() => {
     if (user?.id) dispatch(fetchWorkouts(user.id));
@@ -27,8 +29,17 @@ export default function Workouts() {
 
       {status === "succeeded" && <WorkoutsTable />}
       <WorkoutFooter />
+
       {isAddModalOpen && (
         <AddWorkoutModal onClose={() => dispatch(closeAddModal())} />
+      )}
+
+      {isEditModalOpen && editing && (
+        <AddWorkoutModal
+          edit
+          workout={editing}
+          onClose={() => dispatch(closeEditModal())}
+        />
       )}
     </div>
   );

@@ -5,6 +5,7 @@ import {
   updateWorkoutNotes,
   updateWorkoutExercise,
   deleteWorkoutExercise,
+  updateWorkoutFull,
 } from "./workoutsThunks";
 
 const workoutsSlice = createSlice({
@@ -18,6 +19,13 @@ const workoutsSlice = createSlice({
   reducers: {
     addLocalWorkout(state, action) {
       state.items.unshift(action.payload);
+    },
+    updateLocalWorkoutFull(state, action) {
+      const updated = action.payload;
+      const idx = state.items.findIndex((w) => w.id === updated.id);
+      if (idx >= 0) {
+        state.items[idx] = updated;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -55,6 +63,14 @@ const workoutsSlice = createSlice({
         });
       })
 
+      .addCase(updateWorkoutFull.fulfilled, (state, action) => {
+        const w = action.payload;
+        const idx = state.items.findIndex((x) => x.id === w.id);
+        if (idx !== -1) {
+          state.items[idx] = w;
+        }
+      })
+
       .addCase(deleteWorkoutExercise.fulfilled, (state, action) => {
         const id = action.payload;
         state.items.forEach((w) => {
@@ -64,5 +80,6 @@ const workoutsSlice = createSlice({
   },
 });
 
-export const { addLocalWorkout } = workoutsSlice.actions;
+export const { addLocalWorkout, updateLocalWorkoutFull } =
+  workoutsSlice.actions;
 export default workoutsSlice.reducer;

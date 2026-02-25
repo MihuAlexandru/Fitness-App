@@ -1,0 +1,132 @@
+:root {
+  --border: #e5e7eb;
+  --border-soft: #f0f0f0;
+  --muted: #6b7280;
+  --danger: #b91c1c;
+
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+
+  --font-14: 0.875rem;
+  --font-15: 0.9375rem;
+}
+
+.w-empty {
+  color: var(--muted);
+  margin: var(--space-4) 0;
+}
+
+.wtable-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.wtable {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text);
+  font-size: var(--font-14);
+}
+
+.wthead {
+  border-bottom: 1px solid var(--border);
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.wth {
+  text-align: center;
+  font-weight: 600;
+  padding: 10px 8px;
+}
+
+.wtr {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-row);
+  margin-bottom: var(--space-3);
+  overflow: hidden;
+}
+
+.wtd {
+  display: block;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.wtd:last-child {
+  border-bottom: none;
+}
+
+.wtd::before {
+  content: attr(data-label);
+  display: block;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.w-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 320px) {
+  .wtable {
+    font-size: var(--font-15);
+  }
+}
+
+@media (min-width: 1024px) {
+  .wthead {
+    position: static;
+    height: auto;
+    width: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+  }
+
+  .wtr {
+    display: table-row;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    background: transparent;
+    margin-bottom: 0;
+  }
+
+  .wtd,
+  .wth {
+    display: table-cell;
+    padding: 10px 8px;
+    vertical-align: top;
+    border-bottom: none;
+  }
+
+  .wtd::before {
+    content: none;
+  }
+
+  tbody .wtr:nth-child(even) {
+    background: var(--bg-row-alt);
+  }
+
+  .wtd.wtd--actions {
+    text-align: right;
+  }
+
+  .w-actions {
+    justify-content: flex-end; /* right-align buttons on desktop */
+  }
+}

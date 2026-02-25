@@ -10,9 +10,11 @@ export const initialState = {
   sortBy: "date",
   sortAsc: false,
   page: 1,
-  pageSize: null,
-  isAddModalOpen: false,
+  pageSize: PAGE_SIZE_OPTIONS[0],
   expanded: [],
+  isAddModalOpen: false,
+  isEditModalOpen: false,
+  editing: null,
 };
 
 const workoutsUiSlice = createSlice({
@@ -66,9 +68,21 @@ const workoutsUiSlice = createSlice({
 
     openAddModal(state) {
       state.isAddModalOpen = true;
+      state.isEditModalOpen = false;
+      state.editing = null;
     },
     closeAddModal(state) {
       state.isAddModalOpen = false;
+    },
+
+    openEditModal(state, action) {
+      state.editing = action.payload;
+      state.isEditModalOpen = true;
+      state.isAddModalOpen = false;
+    },
+    closeEditModal(state) {
+      state.editing = null;
+      state.isEditModalOpen = false;
     },
   },
 });
@@ -84,6 +98,8 @@ export const {
   toggleExpand,
   openAddModal,
   closeAddModal,
+  openEditModal,
+  closeEditModal,
 } = workoutsUiSlice.actions;
 
 export default workoutsUiSlice.reducer;

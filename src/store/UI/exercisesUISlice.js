@@ -8,7 +8,7 @@ export const initialState = {
   sortBy: "name",
   sortAsc: true,
   page: 1,
-  pageSize: null,
+  pageSize: PAGE_SIZE_OPTIONS[0],
   isModalOpen: false,
   editing: null,
 };

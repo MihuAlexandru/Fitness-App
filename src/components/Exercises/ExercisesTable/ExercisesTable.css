@@ -1,0 +1,166 @@
+:root {
+  --border: #e5e7eb; /* neutral-200 */
+  --border-soft: #f0f0f0;
+  --text: #111827; /* slate-900 */
+  --muted: #6b7280; /* slate-500 */
+  --danger: #b91c1c; /* red-700 */
+
+  --radius: 10px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+
+  --font-14: 0.875rem;
+  --font-15: 0.9375rem;
+  --font-16: 1rem;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.ex-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text);
+  font-size: var(--font-14);
+}
+
+.ex-thead {
+  border-bottom: 1px solid var(--border);
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.ex-th {
+  text-align: center;
+  font-weight: 600;
+  padding: var(--space-3) var(--space-2);
+}
+
+.ex-tr {
+  border: 1px solid var(--border);
+  background: var(--bg-row);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: block;
+  margin-bottom: var(--space-3);
+}
+
+.ex-td {
+  display: block;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.ex-td::before {
+  content: attr(data-label);
+  display: block;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: var(--space-2);
+}
+
+.ex-td--name strong {
+  font-size: var(--font-16);
+}
+
+.ex-td--desc {
+  white-space: normal;
+  word-break: break-word;
+}
+
+.ex-td--actions {
+  border-bottom: none;
+}
+
+.ex-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ex-btn {
+  appearance: none;
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: var(--font-14);
+}
+
+.ex-btn--danger {
+  color: var(--danger);
+  border-color: #f3c5c5;
+  background: #fff5f5;
+}
+
+.error-text {
+  color: var(--danger);
+}
+
+.muted-dash {
+  opacity: 0.6;
+}
+
+@media (min-width: 320px) {
+  .ex-table {
+    font-size: var(--font-15);
+  }
+  .ex-td {
+    padding: var(--space-5) var(--space-4);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ex-thead {
+    position: static;
+    height: auto;
+    width: auto;
+    overflow: visible;
+    clip: auto;
+    clip-path: none;
+    white-space: normal;
+  }
+
+  .ex-tr {
+    display: table-row;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+
+  .ex-td,
+  .ex-th {
+    display: table-cell;
+    padding: 10px 8px;
+    vertical-align: top;
+  }
+
+  .ex-td {
+    border-bottom: none;
+  }
+
+  .ex-td::before {
+    content: none;
+  }
+
+  .ex-td--actions {
+    white-space: nowrap;
+  }
+
+  .ex-actions {
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+}

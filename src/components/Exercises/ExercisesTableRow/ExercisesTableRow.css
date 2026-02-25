@@ -1,0 +1,5 @@
+@media (min-width: 1024px) {
+  .ex-tr:nth-child(even) {
+    background: var(--bg-row-alt);
+  }
+}

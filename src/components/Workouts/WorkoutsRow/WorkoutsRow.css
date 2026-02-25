@@ -1,0 +1,28 @@
+.wtr--sub {
+  border: none;
+  background: transparent;
+}
+
+.wtd--sub {
+  padding: 0;
+}
+
+.btn:focus-visible {
+  outline-offset: 2px;
+}
+
+.btn.btn-outline {
+  background: transparent;
+}
+
+.ex-btn.btn-danger {
+  color: var(--danger);
+  background: #fff5f5;
+  border-color: #f3c5c5;
+}
+
+@media (max-width: 1024px) {
+  .expand-btn {
+    width: 100%;
+  }
+}

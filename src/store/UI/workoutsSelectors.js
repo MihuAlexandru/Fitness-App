@@ -9,17 +9,14 @@ export const selectFilteredSortedPagedWorkouts = createSelector(
   (workouts, ui) => {
     let rows = workouts;
 
-    // date filter
     if (ui.dateFrom) rows = rows.filter((w) => w.date >= ui.dateFrom);
     if (ui.dateTo) rows = rows.filter((w) => w.date <= ui.dateTo);
 
-    // search
     if (ui.search) {
       const s = ui.search.toLowerCase();
       rows = rows.filter((w) => (w.notes || "").toLowerCase().includes(s));
     }
 
-    // sort
     rows = [...rows];
     rows.sort((a, b) => {
       let cmp = 0;
@@ -33,7 +30,6 @@ export const selectFilteredSortedPagedWorkouts = createSelector(
       return ui.sortAsc ? cmp : -cmp;
     });
 
-    // pagination
     const total = rows.length;
     const pageCount = Math.max(1, Math.ceil(total / ui.pageSize));
     const page = Math.min(ui.page, pageCount);

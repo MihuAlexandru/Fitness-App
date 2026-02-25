@@ -1,31 +1,30 @@
 import { useSelector } from "react-redux";
 import { selectPageData } from "../../../store/UI/exercisesSelectors";
 import ExercisesTableRow from "../ExercisesTableRow/ExercisesTableRow";
-
-const th = { padding: "10px 8px", fontWeight: 600 };
-const td = { padding: "10px 8px", verticalAlign: "top" };
+import "./ExercisesTable.css";
 
 export default function ExercisesTable({ loading, err }) {
   const { pageRows } = useSelector(selectPageData);
 
   if (loading) return <p>Loading…</p>;
-  if (err) return <p style={{ color: "crimson" }}>{err}</p>;
-  if (!pageRows.length) return <p>No exercises found.</p>;
+  if (err) return <p className="error-text">{err}</p>;
+  if (!pageRows?.length) return <p>No exercises found.</p>;
 
   return (
-    <div style={{ overflowX: "auto" }}>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
-        <thead>
-          <tr style={{ borderBottom: "1px solid #ddd" }}>
-            <th style={th}>Name</th>
-            <th style={th}>Muscle group</th>
-            <th style={th}>Description</th>
-            <th style={th}>Actions</th>
+    <div className="table-wrapper">
+      <table className="ex-table">
+        <thead className="ex-thead">
+          <tr>
+            <th className="ex-th">Name</th>
+            <th className="ex-th">Muscle group</th>
+            <th className="ex-th">Description</th>
+            <th className="ex-th">Actions</th>
           </tr>
         </thead>
+
         <tbody>
           {pageRows.map((ex) => (
-            <ExercisesTableRow key={ex.id} ex={ex} tdStyle={td} />
+            <ExercisesTableRow key={ex.id} ex={ex} />
           ))}
         </tbody>
       </table>

@@ -1,0 +1,94 @@
+:root {
+  --radius: 10px;
+  --shadow-soft: 0 6px 24px rgba(0, 0, 0, 0.06);
+  --transition-fast: 180ms ease;
+
+  font-size: clamp(15px, 1.2vw + 0.6rem, 18px);
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root[data-theme="light"] {
+  --bg: #f5fbf7;
+  --panel: #ffffff;
+  --text: #1f2d25;
+  --muted: #72897a;
+  --border: #cce7d9;
+
+  --primary: #6edfb2;
+  --primary-strong: #4fc89d;
+  --accent: #9fe4c5;
+
+  --btn-bg: linear-gradient(180deg, #82e5c0 0%, #5ed2a8 100%);
+  --btn-text: #0e2a20;
+  --btn-border: #88ddb9;
+  --btn-hover-bg: linear-gradient(180deg, #75dfb7 0%, #56caa1 100%);
+  --btn-hover-border: #6ed8b0;
+  --btn-shadow: 0 6px 18px rgba(88, 205, 161, 0.25);
+
+  --focus: #5cd3a8;
+
+  --bg-row: #ffffff;
+  --bg-row-alt: #f3f8f5;
+
+  color-scheme: light;
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f1613;
+  --panel: #13201a;
+  --text: #e8f5ee;
+  --muted: #a8c3b4;
+  --border: #243c31;
+
+  --primary: #70e0b3;
+  --primary-strong: #4fc99f;
+  --accent: #2a5d4a;
+
+  --btn-bg: linear-gradient(180deg, #6ce1b3 0%, #49c79d 100%);
+  --btn-text: #07251a;
+  --btn-border: #49c79d;
+  --btn-hover-bg: linear-gradient(180deg, #61daac 0%, #40bd94 100%);
+  --btn-hover-border: #3cb58d;
+  --btn-shadow: 0 8px 22px rgba(64, 189, 148, 0.35);
+
+  --focus: #49c79d;
+
+  --bg-row: #13201a;
+  --bg-row-alt: #1a2b23;
+
+  color-scheme: dark;
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --bg: #0f1613;
+    --panel: #13201a;
+    --text: #e8f5ee;
+    --muted: #a8c3b4;
+    --border: #243c31;
+    --primary: #70e0b3;
+    --primary-strong: #4fc99f;
+    --accent: #2a5d4a;
+    --btn-bg: linear-gradient(180deg, #6ce1b3 0%, #49c79d 100%);
+    --btn-text: #07251a;
+    --btn-border: #49c79d;
+    --btn-hover-bg: linear-gradient(180deg, #61daac 0%, #40bd94 100%);
+    --btn-hover-border: #3cb58d;
+    --btn-shadow: 0 8px 22px rgba(64, 189, 148, 0.35);
+    --focus: #49c79d;
+    --bg-row: #13201a;
+    --bg-row-alt: #1a2b23;
+  }
+}
