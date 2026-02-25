@@ -1,27 +1,27 @@
-.exh {
+.resource-header {
   display: grid;
   gap: 12px;
   padding: 8px 0;
 }
 
-.exh__top {
+.resource-header__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
 
-.exh__title {
+.resource-header__title {
   margin: 0;
   font-size: 1.5rem;
   line-height: 1.2;
 }
 
-.exh__searchRow {
+.resource-header__searchRow {
   display: flex;
 }
 
-.exh__search {
+.resource-header__search {
   flex: 1;
   padding: 10px 12px;
   border-radius: 8px;
@@ -30,99 +30,103 @@
   min-width: 0;
 }
 
-.exh__search:focus {
+.resource-header__search:focus {
   outline: none;
   border-color: #0f62fe;
   box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.15);
 }
 
-.exh__controls {
+.resource-header__controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px 12px;
 }
 
-.exh__field {
+.resource-header__field {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
-.exh__field--tight .exh__label {
+.resource-header__field--tight .resource-header__label {
   white-space: nowrap;
 }
 
-.exh__label {
+.resource-header__label {
   font-weight: 600;
   font-size: 0.95rem;
   text-align: left;
 }
 
-.exh__select {
+.resource-header__select,
+.resource-header__input {
   padding: 8px 10px;
   border-radius: 8px;
   border: 1px solid #d0d7de;
   font-size: 14px;
 }
 
-.exh__select:focus {
+.resource-header__select:focus,
+.resource-header__input:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.15);
 }
 
-.exh__sortGroup {
+.resource-header__sortGroup {
   display: inline-flex;
   gap: 8px;
   flex-wrap: wrap;
 }
 
 @media (min-width: 320px) {
-  .exh {
+  .resource-header {
     gap: 14px;
   }
 
-  .exh__title {
+  .resource-header__title {
     font-size: 1.65rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .exh {
+  .resource-header {
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 16px;
   }
 
-  .exh__controls {
+  .resource-header__controls {
     gap: 10px 14px;
   }
 }
 
-@media (max-width: 480px) {
-  .exh__title {
+@media (max-width: 601px) {
+  .resource-header__title {
     text-align: left;
     font-size: 1.2rem;
   }
-  .exh button {
+
+  .resource-header button {
     font-size: 0.85rem;
   }
-  .exh__controls {
+
+  .resource-header__controls {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
   }
 
-  .exh__field,
-  .exh__sortGroup,
-  .exh__search,
-  .exh__input,
-  .exh__select,
-  .exh__searchRow {
+  .resource-header__field,
+  .resource-header__sortGroup,
+  .resource-header__search,
+  .resource-header__input,
+  .resource-header__select,
+  .resource-header__searchRow {
     width: 100%;
   }
 
-  .exh__sortGroup {
+  .resource-header__sortGroup {
     display: flex;
     flex-direction: column;
     gap: 8px;

@@ -166,13 +166,15 @@ export default function AddWorkoutModal({
   if (edit && !workout) return null;
 
   return (
-    <div className="awm__backdrop">
-      <Card className="awm__modal">
-        <h3 className="awm__title">{edit ? "Edit Workout" : "Add Workout"}</h3>
+    <div className="modal-backdrop awm__backdrop">
+      <Card className="modal-content awm__modal">
+        <h3 className="modal-title awm__title">
+          {edit ? "Edit Workout" : "Add Workout"}
+        </h3>
 
-        <form className="awm__form" onSubmit={submit}>
-          <label className="awm__field">
-            <span className="awm__label">Date</span>
+        <form className="modal-form awm__form" onSubmit={submit}>
+          <label className="modal-field awm__field">
+            <span className="modal-label awm__label">Date</span>
             <input
               type="date"
               value={date}
@@ -181,8 +183,8 @@ export default function AddWorkoutModal({
             />
           </label>
 
-          <label className="awm__field">
-            <span className="awm__label">Duration</span>
+          <label className="modal-field awm__field">
+            <span className="modal-label awm__label">Duration</span>
             <input
               type="number"
               min={0}
@@ -192,8 +194,8 @@ export default function AddWorkoutModal({
             />
           </label>
 
-          <label className="awm__field">
-            <span className="awm__label">Notes</span>
+          <label className="modal-field awm__field">
+            <span className="modal-label awm__label">Notes</span>
             <input
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
@@ -202,7 +204,7 @@ export default function AddWorkoutModal({
             />
           </label>
 
-          <h4 className="awm__subtitle">Exercises</h4>
+          <h4 className="modal-subtitle awm__subtitle">Exercises</h4>
 
           {rows.map((r) => (
             <div className="awm__row" key={r.id}>
@@ -264,9 +266,9 @@ export default function AddWorkoutModal({
             </button>
           </div>
 
-          {err && <p className="awm__error">{err}</p>}
+          {err && <p className="error">{err}</p>}
 
-          <div className="awm__actions">
+          <div className="modal-actions awm__actions">
             <button
               type="button"
               className="btn"

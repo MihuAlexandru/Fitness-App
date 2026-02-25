@@ -1,4 +1,4 @@
-.exf {
+.paginated-footer {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -9,13 +9,13 @@
   align-items: center;
 }
 
-.exf__total {
+.paginated-footer__total {
   grid-area: total;
   justify-self: end;
   opacity: 0.8;
 }
 
-.exf__pager {
+.paginated-footer__pager {
   grid-area: pager;
   display: inline-flex;
   align-items: center;
@@ -24,32 +24,32 @@
   justify-self: center;
 }
 
-.exf__pageInfo {
+.paginated-footer__pageInfo {
   white-space: nowrap;
   font-size: 0.95rem;
 }
 
 @media (min-width: 320px) {
-  .exf {
+  .paginated-footer {
     gap: 10px;
   }
-  .exf__pager {
+  .paginated-footer__pager {
     gap: 14px;
   }
 }
 
 @media (min-width: 1024px) {
-  .exf {
+  .paginated-footer {
     gap: 12px;
   }
 
-  .exf__pageInfo {
+  .paginated-footer__pageInfo {
     font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .btn.exf__btn {
+  .btn.paginated-footer__btn {
     padding: 8px 12px;
   }
 }

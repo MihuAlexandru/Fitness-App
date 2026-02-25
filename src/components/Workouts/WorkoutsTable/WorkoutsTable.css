@@ -108,11 +108,7 @@
     background: var(--bg-row-alt);
   }
 
-  .wtd.wtd--actions {
-    text-align: right;
-  }
-
   .w-actions {
-    justify-content: flex-end; /* right-align buttons on desktop */
+    justify-content: center;
   }
 }

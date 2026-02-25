@@ -115,6 +115,7 @@
   padding: 10px 12px;
   border-radius: 6px;
   width: 100%;
+  box-sizing: border-box;
   text-align: center;
   transition: background 200ms ease;
 }

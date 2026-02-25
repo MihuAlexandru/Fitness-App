@@ -10,7 +10,7 @@ import {
   setSearchNotes,
   toggleSort,
 } from "../../../store/UI/workoutsUISlice";
-import "./WorkoutsHeader.css";
+import ResourceHeader from "../../ResourceHeader/ResourceHeader";
 
 export default function WorkoutsHeader() {
   const dispatch = useDispatch();
@@ -24,79 +24,60 @@ export default function WorkoutsHeader() {
     return () => clearTimeout(t);
   }, [searchNotes, dispatch]);
 
+  const sortOptions = [
+    { key: "date", label: "Date" },
+    { key: "duration", label: "Duration" },
+  ];
+
   return (
-    <header className="wh">
-      <div className="wh__top">
-        <h1 className="wh__title">My Workouts</h1>
-        <button onClick={() => dispatch(openAddModal())}>+ Add Workout</button>
-      </div>
-
-      <div className="wh__searchRow">
-        <label htmlFor="wh-search" className="sr-only">
-          Search workout notes
-        </label>
+    <ResourceHeader
+      title="My Workouts"
+      canAdd={true}
+      addLabel="+ Add Workout"
+      onAdd={() => dispatch(openAddModal())}
+      searchValue={searchNotes}
+      onSearchChange={(e) => dispatch(setSearchNotes(e.target.value))}
+      searchPlaceholder="Search notes…"
+      searchId="wh-search"
+      sortOptions={sortOptions}
+      sortBy={sortBy}
+      sortAsc={sortAsc}
+      onSortChange={(field) => dispatch(toggleSort(field))}
+    >
+      <label className="resource-header__field">
+        <span className="resource-header__label">From</span>
         <input
-          id="wh-search"
-          type="search"
-          className="wh__search"
-          placeholder="Search notes…"
-          value={searchNotes}
-          onChange={(e) => dispatch(setSearchNotes(e.target.value))}
-          aria-label="Search notes"
+          type="date"
+          className="resource-header__input"
+          value={dateFrom}
+          onChange={(e) => dispatch(setDateFrom(e.target.value))}
         />
-      </div>
+      </label>
 
-      <div className="wh__controls">
-        <div className="wh__sortGroup">
-          <button
-            onClick={() => dispatch(toggleSort("date"))}
-            aria-pressed={sortBy === "date"}
-          >
-            Sort: Date {sortBy === "date" ? (sortAsc ? "↑" : "↓") : ""}
-          </button>
+      <label className="resource-header__field">
+        <span className="resource-header__label">To</span>
+        <input
+          type="date"
+          className="resource-header__input"
+          value={dateTo}
+          onChange={(e) => dispatch(setDateTo(e.target.value))}
+        />
+      </label>
 
-          <button
-            onClick={() => dispatch(toggleSort("duration"))}
-            aria-pressed={sortBy === "duration"}
-          >
-            Sort: Duration {sortBy === "duration" ? (sortAsc ? "↑" : "↓") : ""}
-          </button>
-        </div>
-        <label className="wh__field">
-          <span className="wh__label">From</span>
-          <input
-            type="date"
-            className="wh__input"
-            value={dateFrom}
-            onChange={(e) => dispatch(setDateFrom(e.target.value))}
-          />
-        </label>
-
-        <label className="wh__field">
-          <span className="wh__label">To</span>
-          <input
-            type="date"
-            className="wh__input"
-            value={dateTo}
-            onChange={(e) => dispatch(setDateTo(e.target.value))}
-          />
-        </label>
-
-        <label className="wh__field wh__field--tight">
-          <span className="wh__label">Per page</span>
-          <select
-            className="wh__select"
-            value={pageSize}
-            onChange={(e) => dispatch(setPageSize(Number(e.target.value)))}
-          >
-            {PAGE_SIZE_OPTIONS.map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
-    </header>
+      <label className="resource-header__field resource-header__field--tight">
+        <span className="resource-header__label">Per page</span>
+        <select
+          className="resource-header__select"
+          value={pageSize}
+          onChange={(e) => dispatch(setPageSize(Number(e.target.value)))}
+        >
+          {PAGE_SIZE_OPTIONS.map((n) => (
+            <option key={n} value={n}>
+              {n}
+            </option>
+          ))}
+        </select>
+      </label>
+    </ResourceHeader>
   );
 }

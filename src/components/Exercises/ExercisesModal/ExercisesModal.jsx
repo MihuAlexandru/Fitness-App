@@ -65,14 +65,14 @@ export default function ExercisesModal() {
   }
 
   return (
-    <div className="exm__backdrop">
-      <Card className="exm__modal">
-        <h3 className="exm__title">
+    <div className="modal-backdrop exm__backdrop">
+      <Card className="modal-content exm__modal">
+        <h3 className="modal-title exm__title">
           {isEdit ? "Edit Exercise" : "Add Exercise"}
         </h3>
 
-        <form className="exm__form" onSubmit={handleSave}>
-          <label className="exm__field">
+        <form className="modal-form exm__form" onSubmit={handleSave}>
+          <label className="modal-field exm__field">
             <div>Name</div>
             <input
               value={name}
@@ -84,7 +84,7 @@ export default function ExercisesModal() {
             />
           </label>
 
-          <label className="exm__field">
+          <label className="modal-field exm__field">
             <div>Muscle group</div>
             <input
               value={group}
@@ -95,7 +95,7 @@ export default function ExercisesModal() {
             />
           </label>
 
-          <label className="exm__field">
+          <label className="modal-field exm__field">
             <div>Description</div>
             <textarea
               value={desc}
@@ -106,9 +106,9 @@ export default function ExercisesModal() {
             />
           </label>
 
-          {err && <div className="exm__error">{err}</div>}
+          {err && <div className="error">{err}</div>}
 
-          <div className="exm__actions">
+          <div className="modal-actions exm__actions">
             <button
               type="button"
               className="btn exm__btn"

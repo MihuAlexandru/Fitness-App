@@ -29,7 +29,7 @@ export default function WorkoutsRow({ w }) {
           {w.exercises.length === 1 ? "exercise" : "exercises"}
         </td>
 
-        <td className="wtd wtd--actions" data-label="Actions">
+        <td className="wtd" data-label="Actions">
           <div className="w-actions">
             <button
               className="ex-btn"
