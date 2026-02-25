@@ -5,7 +5,6 @@ import WorkoutsTable from "../../components/Workouts/WorkoutsTable/WorkoutsTable
 import AddWorkoutModal from "../../components/Workouts/AddWorkoutsModal/AddWorkoutsModal";
 import { fetchWorkouts } from "../../store/workouts/workoutsThunks";
 import { closeAddModal, closeEditModal } from "../../store/UI/workoutsUISlice";
-import "./Workouts.css";
 import WorkoutFooter from "../../components/Workouts/WorkoutsFooter/WorkoutsFooter";
 
 export default function Workouts() {
@@ -25,7 +24,7 @@ export default function Workouts() {
       <WorkoutsHeader />
 
       {status === "loading" && <p>Loading…</p>}
-      {error && <p className="workouts-error">{error}</p>}
+      {error && <p className="error">{error}</p>}
 
       {status === "succeeded" && <WorkoutsTable />}
       <WorkoutFooter />

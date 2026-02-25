@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { signInWithEmail } from "../../store/auth/authThunks";
-import "./Login.css";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -23,11 +22,11 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h1 className="login-title">Login</h1>
+    <div className="page-container">
+      <h1 className="page-title">Login</h1>
 
-      <form className="login-form" onSubmit={handleSubmit}>
-        <label htmlFor="email" className="login-label">
+      <form className="page-form" onSubmit={handleSubmit}>
+        <label htmlFor="email" className="form-label">
           Email
         </label>
         <input
@@ -41,7 +40,7 @@ export default function Login() {
           placeholder="you@example.com"
         />
 
-        <label htmlFor="password" className="login-label">
+        <label htmlFor="password" className="form-label">
           Password
         </label>
         <input
@@ -60,9 +59,9 @@ export default function Login() {
         </button>
       </form>
 
-      {error && <p className="login-error">{error}</p>}
+      {error && <p className="error">{error}</p>}
 
-      <p className="login-footer">
+      <p className="page-footer">
         Don’t have an account?{" "}
         <Link to="/signup" className="link">
           Sign up

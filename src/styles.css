@@ -71,8 +71,150 @@ input::placeholder {
   color: var(--muted);
 }
 
+/* Utility Classes for Common Styles */
+
+/* Page/Form Container */
+.page-container {
+  padding: 16px;
+  margin: 40px auto;
+  box-sizing: border-box;
+}
+
+.page-title {
+  text-align: center;
+  margin: 0 0 16px 0;
+}
+
+.page-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.page-form button {
+  margin-top: 10px;
+}
+
+.page-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.error,
+.error-message {
+  color: #b91c1c;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.link {
+  color: #3b82f6;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 320px) {
+  .page-container {
+    padding: 20px;
+    max-width: 560px;
+  }
+
+  .page-title {
+    margin-bottom: 24px;
+  }
+
+  .page-form {
+    gap: 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-container {
+    padding: 24px;
+    max-width: 600px;
+  }
+
+  .page-form {
+    gap: 14px;
+  }
+}
+
+.form-group,
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-group.gap-lg {
+  gap: 14px;
+}
+
+.actions-row,
+.flex-row-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.sr-only {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+.input-base,
+input,
+select,
+textarea {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d0d7de;
+  font-size: 14px;
+}
+
+.input-base:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.15);
+}
+
+.btn-danger {
+  color: #b91c1c;
+  background: #fff5f5;
+  border-color: #f3c5c5;
+}
+
+.btn-danger:hover {
+  background: #ffecec;
+}
+
 @media (max-width: 1024px) {
   body {
     margin: 20px;
   }
+}
+
+.container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signUpWithEmail } from "../../store/auth/authThunks";
 import { useNavigate, Link } from "react-router-dom";
-import "./Signup.css";
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -19,11 +18,11 @@ export default function Signup() {
   };
 
   return (
-    <div className="signup-container">
-      <h1 className="signup-title">Sign up</h1>
+    <div className="page-container">
+      <h1 className="page-title">Sign up</h1>
 
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <label htmlFor="email" className="signup-label">
+      <form className="page-form" onSubmit={handleSubmit}>
+        <label htmlFor="email" className="form-label">
           Email
         </label>
         <input
@@ -37,7 +36,7 @@ export default function Signup() {
           placeholder="you@example.com"
         />
 
-        <label htmlFor="password" className="signup-label">
+        <label htmlFor="password" className="form-label">
           Password
         </label>
         <input
@@ -60,9 +59,9 @@ export default function Signup() {
         </button>
       </form>
 
-      {error && <p className="signup-error">{error}</p>}
+      {error && <p className="error">{error}</p>}
 
-      <p className="signup-footer">
+      <p className="page-footer">
         Already have an account?{" "}
         <Link to="/login" className="link">
           Log in

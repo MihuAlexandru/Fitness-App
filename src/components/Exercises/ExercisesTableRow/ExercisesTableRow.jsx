@@ -36,7 +36,7 @@ export default function ExercisesTableRow({ ex }) {
             >
               Edit
             </button>
-            <button className="ex-btn ex-btn--danger" onClick={onDelete}>
+            <button className="ex-btn btn-danger" onClick={onDelete}>
               Delete
             </button>
           </div>

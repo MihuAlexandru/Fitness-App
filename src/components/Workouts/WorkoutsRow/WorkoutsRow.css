@@ -15,12 +15,6 @@
   background: transparent;
 }
 
-.ex-btn.btn-danger {
-  color: var(--danger);
-  background: #fff5f5;
-  border-color: #f3c5c5;
-}
-
 @media (max-width: 1024px) {
   .expand-btn {
     width: 100%;

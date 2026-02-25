@@ -1,10 +1,12 @@
 .layout {
   display: flex;
   flex-direction: column;
+  padding: 0;
 }
 
 .layout--dashboard {
-  padding: 0 1rem;
+  width: 100%;
+  padding: 0 0.5rem;
 }
 
 .layout__content {
@@ -12,29 +14,14 @@
   flex: 1;
 }
 
-/* Responsive design for tablet */
-@media (max-width: 1200px) {
+@media (min-width: 320px) {
   .layout--dashboard {
     padding: 0 0.75rem;
   }
 }
 
-/* Responsive design for small tablets */
-@media (max-width: 768px) {
+@media (min-width: 1024px) {
   .layout--dashboard {
-    max-width: 100%;
-    padding: 0 0.5rem;
-  }
-}
-
-/* Responsive design for mobile */
-@media (max-width: 480px) {
-  .layout {
-    padding: 0;
-  }
-
-  .layout--dashboard {
-    max-width: 100%;
-    padding: 0;
+    padding: 0 1rem;
   }
 }

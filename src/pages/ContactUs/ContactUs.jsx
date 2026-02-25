@@ -42,9 +42,9 @@ export default function ContactUs() {
 
   if (submitted) {
     return (
-      <div className="contact-container">
-        <h2 className="contact-title">Thank you for contacting us!</h2>
-        <p className="contact-subtitle">Someone will respond soon.</p>
+      <div className="page-container contact-page">
+        <h2 className="page-title">Thank you for contacting us!</h2>
+        <p>Someone will respond soon.</p>
         <button className="btn btn-primary" onClick={() => navigate("/")}>
           Go to Home
         </button>
@@ -53,10 +53,10 @@ export default function ContactUs() {
   }
 
   return (
-    <div className="contact-container">
-      <h1 className="contact-title">Contact Us</h1>
+    <div className="page-container contact-page">
+      <h1 className="page-title">Contact Us</h1>
 
-      <form className="contact-form" onSubmit={handleSubmit}>
+      <form className="page-form" onSubmit={handleSubmit}>
         <label className="sr-only" htmlFor="name">
           Your name
         </label>

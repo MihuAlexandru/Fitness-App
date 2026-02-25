@@ -116,13 +116,3 @@
     background: var(--bg-row-alt);
   }
 }
-
-.btn.btn-danger {
-  color: var(--danger);
-  background: #fff5f5;
-  border-color: #f3c5c5;
-}
-
-.btn.btn-danger:hover {
-  background: #ffecec;
-}

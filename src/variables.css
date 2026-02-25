@@ -3,6 +3,16 @@
   --shadow-soft: 0 6px 24px rgba(0, 0, 0, 0.06);
   --transition-fast: 180ms ease;
 
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+
+  --font-14: 0.875rem;
+  --font-15: 0.9375rem;
+  --font-16: 1rem;
+
   font-size: clamp(15px, 1.2vw + 0.6rem, 18px);
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -20,6 +30,8 @@
   --text: #1f2d25;
   --muted: #72897a;
   --border: #cce7d9;
+  --border-soft: #f0f0f0;
+  --danger: #b91c1c;
 
   --primary: #6edfb2;
   --primary-strong: #4fc89d;
@@ -48,6 +60,8 @@
   --text: #e8f5ee;
   --muted: #a8c3b4;
   --border: #243c31;
+  --border-soft: #f0f0f0;
+  --danger: #b91c1c;
 
   --primary: #70e0b3;
   --primary-strong: #4fc99f;
@@ -78,6 +92,8 @@
     --text: #e8f5ee;
     --muted: #a8c3b4;
     --border: #243c31;
+    --border-soft: #f0f0f0;
+    --danger: #b91c1c;
     --primary: #70e0b3;
     --primary-strong: #4fc99f;
     --accent: #2a5d4a;

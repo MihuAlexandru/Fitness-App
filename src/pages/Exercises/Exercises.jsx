@@ -10,7 +10,6 @@ import ExercisesHeader from "../../components/Exercises/ExercisesHeader/Exercise
 import ExercisesTable from "../../components/Exercises/ExercisesTable/ExercisesTable";
 import ExercisesFooter from "../../components/Exercises/ExercisesFooter/ExercisesFooter";
 import ExercisesModal from "../../components/Exercises/ExercisesModal/ExercisesModal";
-import "./Exercises.css";
 
 export default function Exercises() {
   const dispatch = useDispatch();

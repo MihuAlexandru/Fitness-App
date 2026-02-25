@@ -47,12 +47,6 @@
   box-shadow: 0 0 0 3px rgba(15, 98, 254, 0.15);
 }
 
-.exm__error {
-  color: crimson;
-  font-weight: 600;
-  margin-top: -6px;
-}
-
 .exm__actions {
   display: flex;
   gap: 10px;
