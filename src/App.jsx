@@ -9,6 +9,7 @@ import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import Layout from "./pages/Layout/Layout";
 import Workouts from "./pages/Workouts/Workouts";
+import Messages from "./pages/Messages/Messages";
 import { fetchCurrentUser } from "./store/auth/authThunks";
 import { setAuthState } from "./store/auth/authSlice";
 import ContactUs from "./pages/ContactUs/ContactUs";
@@ -49,6 +50,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <Workouts />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/messages"
+              element={
+                <ProtectedRoute>
+                  <Messages />
                 </ProtectedRoute>
               }
             />

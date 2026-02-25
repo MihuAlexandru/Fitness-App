@@ -1,0 +1,15 @@
+.modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal-label {
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .modal-field {
+    width: 100%;
+  }
+}

@@ -71,6 +71,15 @@ export default function NavBar() {
           </NavLink>
         )}
 
+        {user && (
+          <NavLink
+            to="/messages"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Messages
+          </NavLink>
+        )}
+
         <NavLink
           to="/contact"
           className={({ isActive }) => (isActive ? "active" : "")}

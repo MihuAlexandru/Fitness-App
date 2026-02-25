@@ -6,6 +6,7 @@ import {
 } from "../../../store/exercises/exercisesThunks";
 import { closeModal } from "../../../store/UI/exercisesUISlice";
 import Card from "../../Card/Card";
+import FormInput from "../../FormInput/FormInput";
 import "./ExercisesModal.css";
 
 export default function ExercisesModal() {
@@ -72,39 +73,34 @@ export default function ExercisesModal() {
         </h3>
 
         <form className="modal-form exm__form" onSubmit={handleSave}>
-          <label className="modal-field exm__field">
-            <div>Name</div>
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              autoFocus
-              placeholder="e.g., Push-Ups, Squats"
-              className="exm__input"
-            />
-          </label>
+          <FormInput
+            label="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="e.g., Push-Ups, Squats"
+            required
+            autoFocus
+            className="exm__input"
+          />
 
-          <label className="modal-field exm__field">
-            <div>Muscle group</div>
-            <input
-              value={group}
-              onChange={(e) => setGroup(e.target.value)}
-              required
-              placeholder="e.g., Chest, Back, Legs"
-              className="exm__input"
-            />
-          </label>
+          <FormInput
+            label="Muscle group"
+            value={group}
+            onChange={(e) => setGroup(e.target.value)}
+            placeholder="e.g., Chest, Back, Legs"
+            required
+            className="exm__input"
+          />
 
-          <label className="modal-field exm__field">
-            <div>Description</div>
-            <textarea
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
-              rows={4}
-              placeholder="Optional notes / instructions"
-              className="exm__textarea"
-            />
-          </label>
+          <FormInput
+            label="Description"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+            placeholder="Optional notes / instructions"
+            multiline
+            rows={4}
+            className="exm__textarea"
+          />
 
           {err && <div className="error">{err}</div>}
 

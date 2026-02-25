@@ -71,9 +71,6 @@ input::placeholder {
   color: var(--muted);
 }
 
-/* Utility Classes for Common Styles */
-
-/* Page/Form Container */
 .page-container {
   padding: 16px;
   margin: 40px auto;
@@ -206,7 +203,6 @@ textarea:focus {
   background: #ffecec;
 }
 
-/* Modal Styles */
 .modal-backdrop {
   position: fixed;
   inset: 0;

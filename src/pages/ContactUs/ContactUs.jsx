@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { supabase } from "../../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import "./ContactUs.css";
 
@@ -22,21 +21,25 @@ export default function ContactUs() {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await supabase.from("contact_messages").insert([
-      {
+    try {
+      const existingMessages = JSON.parse(
+        localStorage.getItem("messages") || "[]",
+      );
+      const newMessage = {
+        id: Date.now(),
         name: form.name,
         email: form.email,
         message: form.message,
-      },
-    ]);
-
-    setLoading(false);
-
-    if (!error) {
+        timestamp: new Date().toISOString(),
+      };
+      existingMessages.push(newMessage);
+      localStorage.setItem("messages", JSON.stringify(existingMessages));
+      setLoading(false);
       setSubmitted(true);
-    } else {
-      alert("Something went wrong. Try again!");
+    } catch (error) {
       console.error(error);
+      alert("Something went wrong. Try again!");
+      setLoading(false);
     }
   }
 
