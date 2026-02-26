@@ -49,11 +49,18 @@ export default function ExerciseRow({
 
       <button
         type="button"
-        className="btn btn-danger awm__remove"
+        className="btn btn-danger awm__removeText"
         onClick={() => onRemoveRow(row.id)}
       >
         Remove Exercise
       </button>
+
+      <img
+        className="awm__removeIcon"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAASUlEQVR4nGNgGCmggYGB4T8a7iDXsP8U4oG3gIFUxQykq6e/Bf9J5I9awDBqAcOoBSPQAkJg8FnwhIx64AkpFviRaMkTqJ5hCAD2EKaTKxxljwAAAABJRU5ErkJggg=="
+        alt="trash"
+        onClick={() => onRemoveRow(row.id)}
+      />
     </div>
   );
 }

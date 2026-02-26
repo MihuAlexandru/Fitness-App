@@ -15,7 +15,23 @@
   background: transparent;
 }
 
+.w-btn--text {
+  display: none;
+}
+
+.w-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
 @media (max-width: 1024px) {
+  .w-btn--text {
+    display: inline-block;
+  }
+  .w-icon {
+    display: none;
+  }
   .expand-btn {
     width: 100%;
   }

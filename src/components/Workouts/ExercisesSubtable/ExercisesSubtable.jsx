@@ -118,25 +118,45 @@ export default function ExercisesSubtable({ workout }) {
 
                 <td className="wesub-td wesub-td--actions" data-label="Actions">
                   {isEditing ? (
-                    <div className="wesub-actions">
-                      <button className="ex-btn" onClick={() => save(r.id)}>
+                    <div className="wesub-actions is-editing">
+                      <button
+                        className="ex-btn ex-btn--text"
+                        onClick={() => save(r.id)}
+                      >
                         Save
                       </button>
-                      <button className="ex-btn" onClick={cancel}>
+                      <button className="ex-btn ex-btn--text" onClick={cancel}>
                         Cancel
                       </button>
                     </div>
                   ) : (
                     <div className="wesub-actions">
-                      <button className="ex-btn" onClick={() => startEdit(r)}>
+                      <button
+                        className="ex-btn ex-btn--text"
+                        onClick={() => startEdit(r)}
+                      >
                         Edit
                       </button>
                       <button
-                        className="btn-danger ex-btn"
+                        className="btn-danger ex-btn ex-btn--text"
                         onClick={() => dispatch(deleteWorkoutExercise(r.id))}
                       >
                         Delete
                       </button>
+
+                      <img
+                        className="wesub-icon"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlElEQVR4nO3UMQoCMRBG4e9+VisIgrXgIYTd49jZeAiv4QW0lUV3RZyFsNiZWOVBSJji/ZMJhMqHPW5oFKDDGOuBdU75KcQ9Dsk5y02OIRywjdoUcs01liH2C3bR/Rhv8rO8xwbnWVibS95EbYVnKfkC91LyZTLzKlfl/5FLfsW3dC7vZGAKyN75PCBdrYwUlVd84wW1U2UuYfrsxgAAAABJRU5ErkJggg=="
+                        alt="edit"
+                        onClick={() => startEdit(r)}
+                      />
+
+                      <img
+                        className="wesub-icon"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAASUlEQVR4nGNgGCmggYGB4T8a7iDXsP8U4oG3gIFUxQykq6e/Bf9J5I9awDBqAcOoBSPQAkJg8FnwhIx64AkpFviRaMkTqJ5hCAD2EKaTKxxljwAAAABJRU5ErkJggg=="
+                        alt="delete"
+                        onClick={() => dispatch(deleteWorkoutExercise(r.id))}
+                      />
                     </div>
                   )}
                 </td>

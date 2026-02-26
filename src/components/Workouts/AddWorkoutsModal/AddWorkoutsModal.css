@@ -33,6 +33,13 @@
   margin-top: 4px;
 }
 
+.awm__removeText {
+  display: none;
+}
+.awm__removeIcon {
+  display: inline;
+}
+
 @media (max-width: 480px) {
   .awm__addRowWrap {
     justify-content: stretch;
@@ -40,5 +47,11 @@
   .awm__addRow {
     width: 100%;
     text-align: center;
+  }
+  .awm__removeText {
+    display: inline-block;
+  }
+  .awm__removeIcon {
+    display: none;
   }
 }

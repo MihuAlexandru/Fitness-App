@@ -55,6 +55,10 @@ export const handleWorkoutSubmit = async ({
       throw new Error("Add at least one exercise to your workout.");
     }
 
+    if (!duration || Number(duration) <= 0) {
+      throw new Error("Duration is required and must be greater than 0.");
+    }
+
     if (edit) {
       await dispatch(
         updateWorkoutFull({
