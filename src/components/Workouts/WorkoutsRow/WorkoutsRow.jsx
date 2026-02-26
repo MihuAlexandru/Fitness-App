@@ -25,19 +25,6 @@ export default function WorkoutsRow({ w, index, mode }) {
 
           <td className="wtd">
             <div className="w-actions">
-              <button
-                className="ex-btn w-btn--text"
-                onClick={() => dispatch(openEditModal(w))}
-              >
-                Edit
-              </button>
-              <button
-                className="ex-btn btn-danger w-btn--text"
-                onClick={handleDelete}
-              >
-                Delete
-              </button>
-
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="icon-theme"
@@ -155,6 +142,21 @@ export default function WorkoutsRow({ w, index, mode }) {
             <span className="wcard-right wcard-notes">
               {w.notes || <em>No notes</em>}
             </span>
+          </div>
+
+          <div className="wcard-row">
+            <button
+              className="ex-btn w-btn--text"
+              onClick={() => dispatch(openEditModal(w))}
+            >
+              Edit
+            </button>
+            <button
+              className="ex-btn btn-danger w-btn--text"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
           </div>
 
           <div className="wcard-row wcard-expand">

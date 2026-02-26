@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./Messages.css";
+import Card from "../../components/Card/Card";
 
 export default function Messages() {
   const [messages, setMessages] = useState([]);
@@ -47,7 +48,7 @@ export default function Messages() {
       ) : (
         <div className="messages__list">
           {messages.map((msg) => (
-            <div key={msg.id} className="messages__card">
+            <Card key={msg.id} className="messages__card">
               <div className="messages__header">
                 <div className="messages__info">
                   <h3 className="messages__name">{msg.name}</h3>
@@ -72,7 +73,7 @@ export default function Messages() {
                   Delete
                 </button>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
       )}

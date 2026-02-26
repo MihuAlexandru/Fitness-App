@@ -13,6 +13,7 @@ import Messages from "./pages/Messages/Messages";
 import { fetchCurrentUser } from "./store/auth/authThunks";
 import { setAuthState } from "./store/auth/authSlice";
 import ContactUs from "./pages/ContactUs/ContactUs";
+import Stats from "./pages/Stats/Stats";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,14 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route
+              path="/stats"
+              element={
+                <ProtectedRoute>
+                  <Stats />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
