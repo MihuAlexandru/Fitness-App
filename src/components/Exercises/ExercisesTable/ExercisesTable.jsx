@@ -15,16 +15,22 @@ export default function ExercisesTable({ loading, err }) {
       <table className="ex-table">
         <thead className="ex-thead">
           <tr>
-            <th className="ex-th">Name</th>
-            <th className="ex-th">Muscle group</th>
-            <th className="ex-th">Description</th>
-            <th className="ex-th">Actions</th>
+            <th className="ex-th ex-col-name">Name</th>
+            <th className="ex-th ex-col-muscle">Muscle group</th>
+            <th className="ex-th ex-col-desc">Description</th>
+            <th className="ex-th ex-col-actions">Actions</th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody className="desktop-body">
           {pageRows.map((ex) => (
-            <ExercisesTableRow key={ex.id} ex={ex} />
+            <ExercisesTableRow key={ex.id} ex={ex} mode="desktop" />
+          ))}
+        </tbody>
+
+        <tbody className="mobile-body">
+          {pageRows.map((ex) => (
+            <ExercisesTableRow key={ex.id} ex={ex} mode="mobile" />
           ))}
         </tbody>
       </table>

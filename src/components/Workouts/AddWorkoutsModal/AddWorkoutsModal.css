@@ -38,6 +38,7 @@
 }
 .awm__removeIcon {
   display: inline;
+  cursor: pointer;
 }
 
 @media (max-width: 480px) {
