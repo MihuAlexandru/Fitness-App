@@ -10,7 +10,7 @@ const exercisesSlice = createSlice({
   name: "exercises",
   initialState: {
     items: [],
-    status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+    status: "idle",
     error: null,
   },
   reducers: {},

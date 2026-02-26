@@ -18,6 +18,7 @@ export default function WorkoutsTable() {
             <th className="wth">Notes</th>
             <th className="wth">Exercises</th>
             <th className="wth">Actions</th>
+            <th className="wth"></th>
           </tr>
         </thead>
 

@@ -64,7 +64,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/contact" element={<ContactUs />} />
-            <Route path="*" element={<Navigate to="/" replace />} />{" "}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
       </div>

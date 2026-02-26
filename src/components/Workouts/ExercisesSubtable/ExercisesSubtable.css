@@ -77,6 +77,10 @@
 }
 
 @media (min-width: 1024px) {
+  .wesub-table {
+    table-layout: fixed;
+  }
+
   .wesub-thead {
     position: static;
     height: auto;
@@ -102,6 +106,8 @@
     padding: 10px 8px;
     border-bottom: none;
     vertical-align: middle;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .wesub-td::before {

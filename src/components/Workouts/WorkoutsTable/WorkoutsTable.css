@@ -66,6 +66,10 @@
   justify-content: center;
 }
 
+.wtd:last-child {
+  text-align: center;
+}
+
 @media (min-width: 320px) {
   .wtable {
     font-size: var(--font-15);
@@ -73,6 +77,10 @@
 }
 
 @media (min-width: 1024px) {
+  .wtable {
+    table-layout: fixed;
+  }
+
   .wthead {
     position: static;
     height: auto;
@@ -98,6 +106,14 @@
     padding: 10px 8px;
     vertical-align: top;
     border-bottom: none;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .wth:last-child,
+  .wtd:last-child {
+    width: 5%;
+    text-align: right;
   }
 
   .wtd::before {

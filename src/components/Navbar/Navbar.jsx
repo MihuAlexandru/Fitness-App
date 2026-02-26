@@ -88,7 +88,6 @@ export default function NavBar() {
         </NavLink>
 
         {user ? (
-          // Styled like a link, still performs sign-out action
           <a href="/" onClick={handleSignOut} className="nav__action">
             Sign out
           </a>

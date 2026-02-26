@@ -6,7 +6,6 @@ import {
 } from "../../../store/UI/workoutsUISlice";
 import { updateWorkoutFull } from "../../../store/workouts/workoutsThunks";
 
-// Utility functions
 export const uid = () =>
   crypto?.randomUUID ? crypto.randomUUID() : String(Math.random());
 
@@ -16,7 +15,6 @@ export const toInputStr = (v) =>
 export const toNumOrNull = (v) =>
   v === "" || v === null || v === undefined ? null : Number(v);
 
-// Row management functions
 export const updateRow = (rows, id, patch) =>
   rows.map((r) => (r.id === id ? { ...r, ...patch } : r));
 
@@ -33,7 +31,6 @@ export const removeRow = (rows, id) => {
   return next;
 };
 
-// Form submission handler
 export const handleWorkoutSubmit = async ({
   e,
   edit,
