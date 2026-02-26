@@ -70,6 +70,14 @@
   text-align: center;
 }
 
+.desktop-body {
+  display: none;
+}
+
+.mobile-body {
+  display: table-row-group;
+}
+
 @media (min-width: 320px) {
   .wtable {
     font-size: var(--font-15);
@@ -126,5 +134,13 @@
 
   .w-actions {
     justify-content: center;
+  }
+
+  .desktop-body {
+    display: table-row-group;
+  }
+
+  .mobile-body {
+    display: none;
   }
 }

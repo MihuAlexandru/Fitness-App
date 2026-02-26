@@ -81,6 +81,7 @@
 }
 
 .wesub-icon {
+  cursor: pointer;
   display: inline-block;
 }
 

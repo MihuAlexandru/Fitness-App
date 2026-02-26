@@ -21,10 +21,15 @@ export default function WorkoutsTable() {
             <th className="wth"></th>
           </tr>
         </thead>
+        <tbody className="desktop-body">
+          {paged.map((w, index) => (
+            <WorkoutsRow key={w.id} w={w} index={index + 1} mode="desktop" />
+          ))}
+        </tbody>
 
-        <tbody>
-          {paged.map((w) => (
-            <WorkoutsRow key={w.id} w={w} />
+        <tbody className="mobile-body">
+          {paged.map((w, index) => (
+            <WorkoutsRow key={w.id} w={w} index={index + 1} mode="mobile" />
           ))}
         </tbody>
       </table>
