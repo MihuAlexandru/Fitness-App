@@ -7,17 +7,18 @@ import { fetchWorkouts } from "../../store/workouts/workoutsThunks";
 export default function Stats() {
   const dispatch = useDispatch();
   const { user } = useSelector((s) => s.auth);
-
-  useEffect(() => {
-    if (user?.id) dispatch(fetchWorkouts(user.id));
-  }, [user?.id, dispatch]);
-
   const {
     items: workouts,
     catalog,
     status,
     error,
   } = useSelector((s) => s.workouts);
+
+  useEffect(() => {
+    if (status === "idle") {
+      if (user?.id) dispatch(fetchWorkouts(user.id));
+    }
+  }, [user?.id, dispatch, status]);
 
   const year = getCurrentYear();
 

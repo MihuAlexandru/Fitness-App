@@ -16,8 +16,10 @@ export default function Workouts() {
   );
 
   useEffect(() => {
-    if (user?.id) dispatch(fetchWorkouts(user.id));
-  }, [user?.id, dispatch]);
+    if (status === "idle") {
+      if (user?.id) dispatch(fetchWorkouts(user.id));
+    }
+  }, [user?.id, dispatch, status]);
 
   return (
     <div className="container">
