@@ -1,9 +1,17 @@
-import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { computeYearStats, getCurrentYear } from "./statsUtils";
 import Card from "../../components/Card/Card";
+import { fetchWorkouts } from "../../store/workouts/workoutsThunks";
 
 export default function Stats() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((s) => s.auth);
+
+  useEffect(() => {
+    if (user?.id) dispatch(fetchWorkouts(user.id));
+  }, [user?.id, dispatch]);
+
   const {
     items: workouts,
     catalog,
@@ -49,7 +57,7 @@ export default function Stats() {
         <StatCard label="Workouts (this year)" value={stats.totalWorkouts} />
         <StatCard
           label="Total volume"
-          value={formatNumber(stats.totalVolume)}
+          value={`${formatNumber(stats.totalVolume)} kg`}
           tooltip="Σ (sets × reps × weight)"
         />
         <StatCard

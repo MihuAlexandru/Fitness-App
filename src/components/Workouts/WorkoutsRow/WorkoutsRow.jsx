@@ -3,6 +3,7 @@ import { deleteWorkout } from "../../../store/workouts/workoutsThunks";
 import { toggleExpand, openEditModal } from "../../../store/UI/workoutsUISlice";
 import ExercisesSubtable from "../ExercisesSubtable/ExercisesSubtable";
 import "./WorkoutsRow.css";
+import { formatDateDDMMMYYYY } from "../../../utils/formatDate";
 
 export default function WorkoutsRow({ w, index, mode }) {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export default function WorkoutsRow({ w, index, mode }) {
     return (
       <>
         <tr className="wtr desktop-row">
-          <td className="wtd">{w.date}</td>
+          <td className="wtd">{formatDateDDMMMYYYY(w.date)}</td>
           <td className="wtd">{w.duration ?? "—"} min</td>
           <td className="wtd">{w.notes || <em>No notes</em>}</td>
           <td className="wtd">{w.exercises.length} exercises</td>
@@ -128,7 +129,7 @@ export default function WorkoutsRow({ w, index, mode }) {
         <div className="wcard">
           <div className="wcard-row wcard-header">
             <span className="wcard-title">Workout {index}</span>
-            <span className="wcard-date">{w.date}</span>
+            <span className="wcard-date">{formatDateDDMMMYYYY(w.date)}</span>
           </div>
           <div className="wcard-row">
             <span className="wcard-left">

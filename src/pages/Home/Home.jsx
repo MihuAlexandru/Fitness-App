@@ -46,9 +46,14 @@ export default function Home() {
             Log in
           </NavLink>
         ) : (
-          <NavLink to="/workouts" className="btn">
-            Log Workout
-          </NavLink>
+          <>
+            <NavLink to="/workouts" className="btn">
+              Log Workout
+            </NavLink>
+            <NavLink to="/stats" className="btn">
+              View Stats
+            </NavLink>
+          </>
         )}
       </section>
     </main>

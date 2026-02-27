@@ -49,7 +49,7 @@ export default function ExercisesSubtable({ workout }) {
             <th className="wesub-th">Muscle</th>
             <th className="wesub-th">Sets</th>
             <th className="wesub-th">Reps</th>
-            <th className="wesub-th">Weight</th>
+            <th className="wesub-th">Weight (kg)</th>
             <th className="wesub-th">Actions</th>
           </tr>
         </thead>

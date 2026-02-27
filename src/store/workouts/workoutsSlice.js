@@ -62,7 +62,6 @@ const workoutsSlice = createSlice({
           }
         });
       })
-
       .addCase(updateWorkoutFull.fulfilled, (state, action) => {
         const w = action.payload;
         const idx = state.items.findIndex((x) => x.id === w.id);
@@ -70,7 +69,6 @@ const workoutsSlice = createSlice({
           state.items[idx] = w;
         }
       })
-
       .addCase(deleteWorkoutExercise.fulfilled, (state, action) => {
         const id = action.payload;
         state.items.forEach((w) => {

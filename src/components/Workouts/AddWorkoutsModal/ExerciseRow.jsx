@@ -42,7 +42,7 @@ export default function ExerciseRow({
         type="number"
         min={0}
         step="0.5"
-        placeholder="Weight"
+        placeholder="Weight (kg)"
         value={row.weight ?? ""}
         onChange={(e) => onUpdateRow(row.id, { weight: e.target.value })}
       />
